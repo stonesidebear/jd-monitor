@@ -1,28 +1,22 @@
-from playwright.sync_api import sync_playwright
+from pathlib import Path
+
+from src.scraper import get_html
 
 print("=" * 50)
 print("JD Monitor Started")
 print("=" * 50)
 
-URL = "https://m.global.jdsports.com"
+html = get_html()
 
-with sync_playwright() as p:
+Path("data").mkdir(exist_ok=True)
 
-    browser = p.chromium.launch(
-        headless=True
-    )
+with open(
+    "data/latest.html",
+    "w",
+    encoding="utf-8"
+) as f:
+    f.write(html)
 
-    page = browser.new_page()
-
-    print("Opening JD Sports...")
-
-    page.goto(
-        URL,
-        wait_until="networkidle",
-        timeout=60000
-    )
-
-    print("Page Title:")
-    print(page.title())
-
-    browser.close()
+print()
+print("HTML saved successfully.")
+print(f"HTML Size : {len(html):,} bytes")
