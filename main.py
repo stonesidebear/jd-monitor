@@ -1,23 +1,28 @@
-import requests
-from bs4 import BeautifulSoup
-
-URL = "https://m.global.jdsports.com/men/brand/nike,adidas,adidas-originals,asics,berghaus,birkenstock,boss,calvin-klein,calvin-klein-jeans,calvin-klein-performance,calvin-klein-underwear,canterbury,champion,columbia,converse,ea7,emporio-armani-ea7,fila,fred-perry,jack-wolfskin,jordan,lacoste,mammut,new-balance,new-era,nike-sb,polo-ralph-lauren,puma,reebok,superga,the-north-face,timberland,tommy-hilfiger,tommy-hilfiger-underwear,tommy-jeans,ugg,umbro,under-armour,vans/sale/?jd_sort_order=price-low-high"
+from playwright.sync_api import sync_playwright
 
 print("=" * 50)
 print("JD Monitor Started")
 print("=" * 50)
 
-response = requests.get(
-    URL,
-    headers={
-        "User-Agent": "Mozilla/5.0"
-    },
-    timeout=30
-)
+URL = "https://m.global.jdsports.com"
 
-print(f"Status Code : {response.status_code}")
+with sync_playwright() as p:
 
-soup = BeautifulSoup(response.text, "lxml")
+    browser = p.chromium.launch(
+        headless=True
+    )
 
-print("Page Title :")
-print(soup.title.text)
+    page = browser.new_page()
+
+    print("Opening JD Sports...")
+
+    page.goto(
+        URL,
+        wait_until="networkidle",
+        timeout=60000
+    )
+
+    print("Page Title:")
+    print(page.title())
+
+    browser.close()
