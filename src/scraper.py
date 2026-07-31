@@ -1,26 +1,107 @@
+from pathlib import Path
+
 from playwright.sync_api import sync_playwright
 
-URL = "https://m.global.jdsports.com/men/brand/nike,adidas,adidas-originals,asics,berghaus,birkenstock,boss,calvin-klein,calvin-klein-jeans,calvin-klein-performance,calvin-klein-underwear,canterbury,champion,columbia,converse,ea7,emporio-armani-ea7,fila,fred-perry,jack-wolfskin,jordan,lacoste,mammut,new-balance,new-era,nike-sb,polo-ralph-lauren,puma,reebok,superga,the-north-face,timberland,tommy-hilfiger,tommy-hilfiger-underwear,tommy-jeans,ugg,umbro,under-armour,vans/sale/?jd_sort_order=price-low-high"
+URL = "https://m.global.jdsports.com/men/brand/nike/sale/?jd_sort_order=price-low-high"
 
 
 def get_html():
+
+    ajax_responses = []
+
     with sync_playwright() as p:
-        browser = p.chromium.launch(
-            headless=True
+
+        browser = p.chromium.launch(headless=True)
+
+        page = browser.new_page(
+            viewport={"width": 1400, "height": 2000}
         )
 
-        page = browser.new_page()
+        def save_ajax(response):
+
+            if (
+                "AJAX=1" in response.url
+                and "sale/" in response.url
+            ):
+
+                try:
+                    text = response.text()
+
+                    ajax_responses.append(
+                        {
+                            "url": response.url,
+                            "html": text,
+                        }
+                    )
+
+                    print(f"Captured : {response.url}")
+
+                except Exception as e:
+                    print(e)
+
+        page.on("response", save_ajax)
 
         print("Opening JD Sports...")
 
         page.goto(
             URL,
             wait_until="domcontentloaded",
-            timeout=60000
+            timeout=60000,
         )
 
-        # JavaScriptの描画待ち
-        page.wait_for_timeout(5000)
+        page.wait_for_selector("#productListMain")
+
+        previous = 0
+        same_count = 0
+
+        for _ in range(100):
+
+            page.evaluate(
+                "window.scrollTo(0, document.body.scrollHeight)"
+            )
+
+            # スクロール後にAJAX完了を待つ
+            page.wait_for_timeout(2500)
+
+            try:
+                page.wait_for_load_state("networkidle", timeout=5000)
+            except Exception:
+                # networkidleにならなくても続行
+                pass
+
+            count = page.locator(
+                "li.productListItem"
+            ).count()
+
+            print(
+                f"Products : {count} | AJAX : {len(ajax_responses)}"
+            )
+
+            if count == previous:
+                same_count += 1
+            else:
+                same_count = 0
+
+            previous = count
+
+            if same_count >= 5:
+                print("Finished scrolling.")
+                break
+
+        Path("data/ajax").mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+        for i, item in enumerate(ajax_responses):
+
+            with open(
+                f"data/ajax/{i:03}.html",
+                "w",
+                encoding="utf-8",
+            ) as f:
+
+                f.write(item["html"])
 
         html = page.content()
 

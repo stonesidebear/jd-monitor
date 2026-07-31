@@ -1,22 +1,14 @@
-from pathlib import Path
+from src.scraper import scrape
+from src.parser import parse
 
-from src.scraper import get_html
+result = scrape()
 
-print("=" * 50)
-print("JD Monitor Started")
-print("=" * 50)
+products = parse(result)
 
-html = get_html()
+for p in products[:10]:
 
-Path("data").mkdir(exist_ok=True)
-
-with open(
-    "data/latest.html",
-    "w",
-    encoding="utf-8"
-) as f:
-    f.write(html)
-
-print()
-print("HTML saved successfully.")
-print(f"HTML Size : {len(html):,} bytes")
+    print(p["name"])
+    print(p["was"])
+    print(p["price"])
+    print(p["url"])
+    print()
