@@ -61,6 +61,16 @@ def _parse_item(item: Tag) -> Product | None:
     )
 
 
+def parse_page(html: str) -> list[Product]:
+    """Parse a single HTML page into Products (no cross-page dedup)."""
+    soup = BeautifulSoup(html, "html.parser")
+    items = soup.select(PRODUCT_ITEM_SELECTOR)
+
+    products = [_parse_item(item) for item in items]
+
+    return [p for p in products if p is not None]
+
+
 def parse(result: ScrapeResult) -> list[Product]:
     """Parse every page of ``result`` into a deduplicated Product list."""
     products: list[Product] = []
@@ -71,17 +81,11 @@ def parse(result: ScrapeResult) -> list[Product]:
     logger.info("Parsing %d HTML page(s)", len(html_pages))
 
     for page_no, html in enumerate(html_pages):
-        soup = BeautifulSoup(html, "html.parser")
-        items = soup.select(PRODUCT_ITEM_SELECTOR)
+        page_products = parse_page(html)
 
-        logger.debug("Page %02d: %d raw items", page_no, len(items))
+        logger.debug("Page %02d: %d parsed items", page_no, len(page_products))
 
-        for item in items:
-            product = _parse_item(item)
-
-            if product is None:
-                continue
-
+        for product in page_products:
             if product.url in seen_urls:
                 continue
 

@@ -17,8 +17,9 @@ from src.notifier import get_notifications, print_notifications
 from src.parser import parse
 from src.product import Product
 from src.profit import calculate_all
-from src.scraper import scrape
+from src.scraper import JDScraper
 from src.storage import load_products, save_history, save_products
+from src.watch import compute_signature, load_signature, save_signature
 
 logger = logging.getLogger(__name__)
 
@@ -40,6 +41,11 @@ def _parse_args() -> argparse.Namespace:
         "--skip-email",
         action="store_true",
         help="Skip sending the notification email (debug/testing only).",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Run the full scrape even if the TOP page signature is unchanged.",
     )
     return parser.parse_args()
 
@@ -89,7 +95,26 @@ def main() -> None:
     previous = load_products()
     logger.info("Previous products: %d", len(previous))
 
-    result = scrape(max_pages=args.max_pages)
+    with JDScraper(max_pages=args.max_pages) as scraper:
+        top_html, total_pages = scraper.open_top_page()
+
+        signature = compute_signature(top_html)
+        changed = signature != load_signature()
+
+        if not changed and not args.force:
+            logger.info(
+                "No change detected on TOP page (%d pages total) - skipping full scrape.",
+                total_pages,
+            )
+            return
+
+        if changed:
+            save_signature(signature)
+            logger.info("Change detected on TOP page, running full scrape.")
+        else:
+            logger.info("--force given with no change detected, running full scrape anyway.")
+
+        result = scraper.scrape_remaining()
 
     products = parse(result)
 

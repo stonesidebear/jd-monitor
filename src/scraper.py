@@ -132,6 +132,9 @@ class JDScraper:
         self._playwright = None
         self._browser: Browser | None = None
         self._context: BrowserContext | None = None
+        self._page: Page | None = None
+        self._top_html: str | None = None
+        self._total_pages: int = 1
 
     def __enter__(self) -> "JDScraper":
         self._playwright = sync_playwright().start()
@@ -284,23 +287,37 @@ class JDScraper:
     # Orchestration
     # ------------------------------------------------------------------
 
-    def run(self) -> ScrapeResult:
-        """Run the full scrape: TOP page + every AJAX page.
+    def open_top_page(self) -> tuple[str, int]:
+        """Fetch only the TOP page and return (html, total_pages).
 
-        Returns:
-            A ScrapeResult with the TOP page HTML, all successfully
-            fetched AJAX page HTML (in page order), and any page
-            numbers that still failed after retries.
+        Cheap relative to a full scrape: it skips every AJAX page, the
+        AI estimator, and the market-price lookups. Used to check
+        whether anything changed before paying for the full run - see
+        :mod:`src.watch`. Must be called before :meth:`scrape_remaining`.
         """
         if self._context is None:
             raise RuntimeError("JDScraper must be used as a context manager")
 
-        page = self._context.new_page()
+        self._page = self._context.new_page()
 
-        main_html, total_pages = self._fetch_top_page(page)
+        main_html, total_pages = self._fetch_top_page(self._page)
 
         if self._max_pages is not None:
             total_pages = min(total_pages, self._max_pages)
+
+        self._top_html = main_html
+        self._total_pages = total_pages
+
+        return main_html, total_pages
+
+    def scrape_remaining(self) -> ScrapeResult:
+        """Fetch every AJAX page after :meth:`open_top_page` was called."""
+        if self._page is None or self._top_html is None:
+            raise RuntimeError("open_top_page() must be called first")
+
+        page = self._page
+        main_html = self._top_html
+        total_pages = self._total_pages
 
         html_by_page: dict[int, str] = {}
         failed_pages: list[int] = []
@@ -352,6 +369,11 @@ class JDScraper:
             total_pages=total_pages,
             failed_pages=failed_pages,
         )
+
+    def run(self) -> ScrapeResult:
+        """Run the full scrape: TOP page + every AJAX page."""
+        self.open_top_page()
+        return self.scrape_remaining()
 
 
 def scrape(max_pages: int | None = None) -> ScrapeResult:
