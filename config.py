@@ -114,7 +114,7 @@ LOG_FILE = "data/logs/jd_monitor.log"
 
 AI_CACHE_PATH = "data/ai_price_cache.json"
 
-WATCH_SIGNATURE_PATH = "data/watch_signature.txt"
+WATCH_PAGE_COUNT_PATH = "data/watch_page_count.txt"
 
 # ======================================================================
 # 通貨換算

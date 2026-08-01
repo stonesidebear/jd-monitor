@@ -3,10 +3,12 @@ name: JD Monitor
 "on":
   workflow_dispatch:
   schedule:
-    # 15分おき。TOPページだけ軽くチェックし、変化がなければ
-    # main.py がそこで即終了する (main.py 側の --force なし判定)。
-    # フルスクレイピングが走るのは実際に値下げ/新商品があった時だけ。
-    - cron: "*/15 * * * *"
+    # 10分おき。TOPページ取得だけで分かる data-pagescount (総ページ数) が
+    # 前回から変化していなければ、そこでフルスクレイピングをスキップする
+    # (main.py参照)。既存商品の追加値下げだけ・ページ数据え置きのケースは
+    # 検知できない既知の制約だが、リクエスト数を抑えつつ高頻度化するため
+    # 許容している。
+    - cron: "4,14,24,34,44,54 * * * *"
 
 permissions:
   contents: write
@@ -65,7 +67,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/csv data/history data/watch_signature.txt
+          git add data/csv data/history data/watch_page_count.txt
           if git diff --cached --quiet; then
             echo "No state changes to commit."
           else

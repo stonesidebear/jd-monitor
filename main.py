@@ -19,7 +19,7 @@ from src.product import Product
 from src.profit import calculate_all
 from src.scraper import JDScraper
 from src.storage import load_products, save_history, save_products
-from src.watch import compute_signature, load_signature, save_signature
+from src.watch import load_page_count, save_page_count
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +45,7 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--force",
         action="store_true",
-        help="Run the full scrape even if the TOP page signature is unchanged.",
+        help="Run the full scrape even if the page count is unchanged.",
     )
     return parser.parse_args()
 
@@ -96,23 +96,28 @@ def main() -> None:
     logger.info("Previous products: %d", len(previous))
 
     with JDScraper(max_pages=args.max_pages) as scraper:
-        top_html, total_pages = scraper.open_top_page()
+        _, total_pages = scraper.open_top_page()
 
-        signature = compute_signature(top_html)
-        changed = signature != load_signature()
+        previous_pages = load_page_count()
+        changed = total_pages != previous_pages
 
         if not changed and not args.force:
             logger.info(
-                "No change detected on TOP page (%d pages total) - skipping full scrape.",
+                "Catalog page count unchanged (%d pages) - skipping full scrape.",
                 total_pages,
             )
             return
 
+        save_page_count(total_pages)
+
         if changed:
-            save_signature(signature)
-            logger.info("Change detected on TOP page, running full scrape.")
+            logger.info(
+                "Catalog page count changed (%s -> %d), running full scrape.",
+                previous_pages,
+                total_pages,
+            )
         else:
-            logger.info("--force given with no change detected, running full scrape anyway.")
+            logger.info("--force given with no page-count change, running full scrape anyway.")
 
         result = scraper.scrape_remaining()
 
