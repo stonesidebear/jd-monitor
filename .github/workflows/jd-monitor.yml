@@ -2,6 +2,19 @@ name: JD Monitor
 
 on:
   workflow_dispatch:
+  schedule:
+    # 3時間おき (JST 00:07, 03:07, 06:07, 09:07, 12:07, 15:07, 18:07, 21:07)
+    # 毎時ちょうどはGitHub側が混みやすいため7分ずらしている
+    - cron: "7 */3 * * *"
+
+permissions:
+  contents: write
+
+# 前回の実行がまだ終わっていない場合、次の実行は待機させる
+# (同時実行によるgit pushの競合を防ぐため)
+concurrency:
+  group: jd-monitor
+  cancel-in-progress: false
 
 jobs:
   monitor:
@@ -27,5 +40,25 @@ jobs:
           playwright install chromium
 
       - name: Run Monitor
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
         run: |
           python main.py
+
+      - name: Commit updated state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/csv data/history
+          if git diff --cached --quiet; then
+            echo "No state changes to commit."
+          else
+            git commit -m "Update product state [skip ci]"
+            git push
+          fi

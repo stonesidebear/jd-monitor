@@ -9,6 +9,20 @@ venv/
 # macOS
 .DS_Store
 
-# Scraping data
+# Scraping data - raw dumps regenerated every run
 data/ajax/
 data/latest.html
+data/screenshots/
+data/logs/
+
+# External price lookup caches - regenerable, not meant to be versioned
+data/ai_price_cache.json
+data/mercari_cache.json
+
+# Stray leftovers from early development, unused by the app
+data/products.csv
+data/expected_prices.py
+
+# data/csv/ (latest snapshot) and data/history/ (daily archive) are
+# intentionally NOT ignored: they are the persistent state the scraper
+# diffs against on the next run (see main.py _apply_diff).

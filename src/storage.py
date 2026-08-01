@@ -1,133 +1,101 @@
+"""CSV persistence.
+
+``products.csv`` always holds the latest snapshot (used to diff against
+on the next run). ``data/history/YYYY-MM-DD.csv`` accumulates one
+snapshot per day so price trends can be analyzed later.
+"""
+
 from __future__ import annotations
 
-from pathlib import Path
 import csv
+import logging
+from datetime import date
+from pathlib import Path
 
-from config import CSV_DIR
+from config import CSV_PATH, HISTORY_DIR
 from src.product import Product
 
+logger = logging.getLogger(__name__)
 
-CSV_FILE = Path(CSV_DIR) / "products.csv"
+_FIELDNAMES = [
+    "url",
+    "name",
+    "price",
+    "was_price",
+    "discount",
+    "expected_price",
+    "mercari_price",
+    "profit",
+    "grade",
+    "is_new",
+    "is_price_down",
+    "notified",
+]
 
 
-def save(products: list[Product]) -> None:
+def _to_row(product: Product) -> list:
+    return [
+        product.url,
+        product.name,
+        product.price,
+        product.was_price,
+        round(product.discount, 1),
+        product.expected_price,
+        product.mercari_price,
+        product.profit,
+        product.grade,
+        product.is_new,
+        product.is_price_down,
+        product.notified,
+    ]
+
+
+def load_products() -> dict[str, dict]:
+    """Load the previous run's CSV, keyed by product URL.
+
+    Returns an empty dict on the very first run (no CSV yet).
     """
-    Save products to CSV.
-    """
+    path = Path(CSV_PATH)
 
-    Path(CSV_DIR).mkdir(
-        parents=True,
-        exist_ok=True,
-    )
-
-    with open(
-        CSV_FILE,
-        "w",
-        newline="",
-        encoding="utf-8",
-    ) as f:
-
-        writer = csv.writer(f)
-
-        writer.writerow(
-            [
-                "name",
-                "price",
-                "was",
-                "currency",
-                "discount_rate",
-                "url",
-            ]
-        )
-
-        for p in products:
-
-            writer.writerow(
-                [
-                    p.name,
-                    p.price,
-                    p.was,
-                    p.currency,
-                    p.discount_rate,
-                    p.url,
-                ]
-            )
-
-
-def load() -> dict[str, Product]:
-    """
-    Load previous CSV.
-
-    Returns
-    -------
-    dict[url, Product]
-    """
-
-    if not CSV_FILE.exists():
+    if not path.exists():
         return {}
 
-    previous = {}
-
-    with open(
-        CSV_FILE,
-        newline="",
-        encoding="utf-8",
-    ) as f:
-
+    with open(path, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
+        products = {row["url"]: row for row in reader}
 
-        for row in reader:
+    logger.info("Loaded %d previous products from %s", len(products), path)
 
-            previous[row["url"]] = Product(
-                name=row["name"],
-                price_text=str(row["price"]),
-                was_text=str(row["was"]),
-                url=row["url"],
-            )
-
-    return previous
+    return products
 
 
-def diff(
-    previous: dict[str, Product],
-    current: list[Product],
-):
-    """
-    Compare previous and current products.
+def save_products(products: list[Product]) -> None:
+    """Overwrite ``products.csv`` with the current snapshot."""
+    path = Path(CSV_PATH)
+    path.parent.mkdir(parents=True, exist_ok=True)
 
-    Returns
-    -------
-    tuple
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(_FIELDNAMES)
 
-    (
-        new_products,
-        price_down_products,
-    )
-    """
+        for product in products:
+            writer.writerow(_to_row(product))
 
-    new_products = []
+    logger.info("Saved %d products to %s", len(products), path)
 
-    price_down = []
 
-    for product in current:
+def save_history(products: list[Product]) -> None:
+    """Append today's snapshot to ``data/history/YYYY-MM-DD.csv``."""
+    history_dir = Path(HISTORY_DIR)
+    history_dir.mkdir(parents=True, exist_ok=True)
 
-        if product.url not in previous:
+    path = history_dir / f"{date.today().isoformat()}.csv"
 
-            new_products.append(product)
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(_FIELDNAMES)
 
-            continue
+        for product in products:
+            writer.writerow(_to_row(product))
 
-        old = previous[product.url]
-
-        if (
-            old.price is not None
-            and product.price is not None
-            and product.price < old.price
-        ):
-
-            price_down.append(product)
-
-    return (
-        new_products,
-        price_down,
-    )
+    logger.info("Saved history snapshot to %s", path)

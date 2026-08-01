@@ -1,0 +1,49 @@
+url,name,price,was_price,discount,expected_price,mercari_price,profit,grade,is_new,is_price_down,notified
+https://m.global.jdsports.com/product/brown-converse-chuck-70-ox-low-womens/055034/,Converse Chuck 70 Ox Low Women's,1000,14000,92.9,0,0,0,?,False,False,True
+https://m.global.jdsports.com/product/white-nike-big-mouth-water-bottle-22oz/396097/,Nike Big Mouth Water Bottle 22oz,1000,1800,44.4,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/pink-adidas-scotland-2025-away-socks/734686/,adidas Scotland 2025 Away Socks,1000,3000,66.7,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/red-champion-small-logo-t-shirt/750862/,Champion Small Logo T-Shirt,1000,3000,66.7,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/black-adidas-as-roma-training-track-pants/757387/,adidas AS Roma Training Track Pants,1000,11000,90.9,0,0,0,?,False,False,True
+https://m.global.jdsports.com/product/black-adidas-training-essential-t-shirt/763211/,adidas Training Essential T-Shirt,1000,3000,66.7,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/blue-adidas-originals-real-madrid-third-cap/764347/,adidas Originals Real Madrid Third Cap,1000,5000,80.0,0,0,0,?,False,False,True
+https://m.global.jdsports.com/product/white-umbro-rangers-fc-classic-shirt/777989/,Umbro Rangers FC Classic Shirt,1000,10000,90.0,0,0,0,?,False,False,True
+https://m.global.jdsports.com/product/white-ugg-2-pack-quinlin-crew-socks/782907/,UGG 2-Pack Quinlin Crew Socks,1000,3200,68.8,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/white-ugg-karsyn-lettuce-quarter-socks/782910/,UGG Karsyn Lettuce Quarter Socks,1000,2400,58.3,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/cream-ugg-karsyn-lettuce-quarter-socks/782911/,UGG Karsyn Lettuce Quarter Socks,1000,2400,58.3,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/blue-nike-heritage-waistpack/088522/,Nike Heritage Waistpack,1600,4000,60.0,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/black-adidas-tiro-bootbag/455175/,adidas Tiro Bootbag,1600,3000,46.7,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/black-nike-core-t-shirt/708680/,Nike Core T-Shirt,1600,4600,65.2,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/white-nike-core-t-shirt/708681/,Nike Core T-Shirt,1600,4600,65.2,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/black-adidas-training-essential-t-shirt/711541/,adidas Training Essential T-Shirt,1600,3000,46.7,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/pink-nike-core-t-shirt/750179/,Nike Core T-Shirt,1600,4600,65.2,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/pink-adidas-originals-3-pack-tie-dye-socks/762313/,adidas Originals 3-Pack Tie Dye Socks,1600,3600,55.6,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/red-nike-core-t-shirt/774213/,Nike Core T-Shirt,1600,4600,65.2,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/grey-champion-large-logo-v2-t-shirt/776033/,Champion Large Logo V2 T-Shirt,1600,3000,46.7,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/brown-champion-small-logo-t-shirt/776035/,Champion Small Logo T-Shirt,1600,3000,46.7,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/grey-champion-small-logo-t-shirt/776036/,Champion Small Logo T-Shirt,1600,3000,46.7,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/white-ugg-jedlyn-varsity-crew-socks/782908/,UGG Jedlyn Varsity Crew Socks,1600,2400,33.3,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/beige-ugg-jedlyn-varsity-crew-socks/782909/,UGG Jedlyn Varsity Crew Socks,1600,2400,33.3,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/white-adidas-originals-multi-colour-contrast-logo-t-shirt/785630/,adidas Originals Multi Colour Contrast Logo T-Shirt,1600,4600,65.2,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/blue-champion-small-logo-t-shirt/786127/,Champion Small Logo T-Shirt,1600,3600,55.6,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/black-berghaus-spectrum-gloves/114947/,Berghaus Spectrum Gloves,2000,4000,50.0,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/brown-converse-chuck-70-hi-womens/067783/,Converse Chuck 70 Hi Women's,2000,16000,87.5,0,0,0,?,False,False,True
+https://m.global.jdsports.com/product/black-nike-heritage-20-gymsack/148655/,Nike Heritage 2.0 Gymsack,2000,4000,50.0,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/red-nike-sportswear-club-t-shirt/105068/,Nike Sportswear Club T-Shirt,2000,4600,56.5,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/black-lacoste-serve-pin-slides/638762/,Lacoste Serve Pin Slides,2000,9000,77.8,0,0,0,?,False,False,True
+https://m.global.jdsports.com/product/multi-nike-6-pack-everyday-cushioned-training-crew-socks/666764/,Nike 6-Pack Everyday Cushioned Training Crew Socks,2000,5000,60.0,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/black-nike-just-do-it-core-t-shirt/668663/,Nike Just Do It Core T-Shirt,2000,4600,56.5,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/white-fila-memory-trexler/690829/,Fila Memory Trexler,2000,8000,75.0,0,0,0,?,False,False,True
+https://m.global.jdsports.com/product/white-fila-camalfi/699954/,Fila Camalfi,2000,10000,80.0,0,0,0,?,False,False,True
+https://m.global.jdsports.com/product/black-adidas-juventus-scarf/706208/,adidas Juventus Scarf,2000,4600,56.5,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/white-puma-spfl-orbita-6-football/710213/,PUMA SPFL Orbita 6 Football,2000,3200,37.5,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/black-under-armour-etip-gloves/719898/,Under Armour Etip Gloves,2000,5000,60.0,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/orange-under-armour-vent-geotessa-t-shirt/750304/,Under Armour Vent Geotessa T-Shirt,2000,7200,72.2,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-centre-logo-t-shirt/750384/,The North Face Centre Logo T-Shirt,2000,4600,56.5,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/black-adidas-originals-outline-trefoil-t-shirt/756733/,adidas Originals Outline Trefoil T-Shirt,2000,4600,56.5,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/grey-adidas-originals-multi-colour-contrast-logo-t-shirt/756736/,adidas Originals Multi Colour Contrast Logo T-Shirt,2000,4600,56.5,0,0,0,?,False,False,False
+https://m.global.jdsports.com/product/grey-puma-manchester-city-fc-202526-third-shorts/757063/,PUMA Manchester City FC 2025/26 Third Shorts,2000,8000,75.0,0,0,0,?,False,False,True
+https://m.global.jdsports.com/product/white-puma-olympique-marseille-202526-home-shorts/757097/,PUMA Olympique Marseille 2025/26 Home Shorts,2000,8000,75.0,0,0,0,?,False,False,True
+https://m.global.jdsports.com/product/blue-puma-olympique-marseille-training-track-pants/757104/,PUMA Olympique Marseille Training Track Pants,2000,12000,83.3,0,0,0,?,False,False,True
+https://m.global.jdsports.com/product/blue-puma-olympique-marseille-tech-jacket/757109/,PUMA Olympique Marseille Tech Jacket,2000,14000,85.7,0,0,0,?,False,False,True
+https://m.global.jdsports.com/product/blue-puma-olympique-marseille-tech-track-pants/757110/,PUMA Olympique Marseille Tech Track Pants,2000,13000,84.6,0,0,0,?,False,False,True
+https://m.global.jdsports.com/product/black-adidas-as-roma-training-shorts/757389/,adidas AS Roma Training Shorts,2000,7600,73.7,0,0,0,?,False,False,False
