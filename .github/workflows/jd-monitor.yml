@@ -1,6 +1,6 @@
 name: JD Monitor
 
-on:
+"on":
   workflow_dispatch:
   schedule:
     # 15分おき。TOPページだけ軽くチェックし、変化がなければ
