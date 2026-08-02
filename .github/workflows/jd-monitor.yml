@@ -78,7 +78,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/csv data/history data/watch_page_count.txt
+          for f in data/csv data/history data/watch_page_count.txt data/ai_price_cache.json data/mercari_cache.json; do
+            if [ -e "$f" ]; then
+              git add "$f"
+            fi
+          done
           if git diff --cached --quiet; then
             echo "No state changes to commit."
           else

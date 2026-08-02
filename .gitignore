@@ -15,9 +15,12 @@ data/latest.html
 data/screenshots/
 data/logs/
 
-# External price lookup caches - regenerable, not meant to be versioned
-data/ai_price_cache.json
-data/mercari_cache.json
+# data/ai_price_cache.json and data/mercari_cache.json are intentionally
+# NOT ignored: GitHub Actions checks out a fresh environment every run, so
+# an ignored cache never survives between runs and gets rebuilt (and
+# re-billed, for the AI cache) from scratch every time. They must be
+# committed back for "don't call the API twice for the same product" to
+# actually hold across runs, not just within a single one.
 
 # Stray leftovers from early development, unused by the app
 data/products.csv
