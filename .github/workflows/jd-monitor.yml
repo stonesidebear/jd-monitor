@@ -87,5 +87,17 @@ jobs:
             echo "No state changes to commit."
           else
             git commit -m "Update product state [skip ci]"
-            git push
+            # main may have moved (e.g. a manual push) while this run was
+            # scraping, so a plain push can be rejected. Rebase onto the
+            # latest main and retry a few times before giving up.
+            for attempt in 1 2 3; do
+              if git push; then
+                exit 0
+              fi
+              echo "Push rejected (attempt $attempt/3), rebasing onto latest main..."
+              git fetch origin main
+              git rebase origin/main
+            done
+            echo "Push still failing after retries." >&2
+            exit 1
           fi
