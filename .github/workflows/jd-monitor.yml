@@ -2,6 +2,12 @@ name: JD Monitor
 
 "on":
   workflow_dispatch:
+    inputs:
+      force:
+        description: "ページ数が前回と同じでも強制的にフルスクレイピングする"
+        required: false
+        type: boolean
+        default: false
   schedule:
     # 10分おき。TOPページ取得だけで分かる data-pagescount (総ページ数) が
     # 前回から変化していなければ、そこでフルスクレイピングをスキップする
@@ -60,8 +66,13 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           MAIL_FROM: ${{ secrets.MAIL_FROM }}
           MAIL_TO: ${{ secrets.MAIL_TO }}
+          FORCE_FULL_SCRAPE: ${{ github.event.inputs.force }}
         run: |
-          python main.py
+          if [ "$FORCE_FULL_SCRAPE" = "true" ]; then
+            python main.py --force
+          else
+            python main.py
+          fi
 
       - name: Commit updated state
         run: |
