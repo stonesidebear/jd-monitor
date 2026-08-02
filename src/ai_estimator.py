@@ -1,8 +1,8 @@
-"""AI-based resale price estimation via the OpenAI API.
+"""AI-based resale price estimation via the Claude API.
 
 Results are cached on disk (keyed by normalized product name) so the
 same product is never billed twice across runs, per the "毎回APIを叩か
-ない" requirement. If ``OPENAI_API_KEY`` is not set, or the request
+ない" requirement. If ``ANTHROPIC_API_KEY`` is not set, or the request
 fails for any reason, this module returns ``None`` and the caller
 (:mod:`src.profit`) falls back to the static keyword estimator instead
 of failing the whole pipeline.
@@ -15,7 +15,7 @@ import logging
 import re
 from pathlib import Path
 
-from config import AI_CACHE_PATH, OPENAI_API_KEY, OPENAI_MODEL, OPENAI_TIMEOUT
+from config import AI_CACHE_PATH, ANTHROPIC_API_KEY, ANTHROPIC_MODEL, ANTHROPIC_TIMEOUT
 from src.product import Product
 
 logger = logging.getLogger(__name__)
@@ -69,27 +69,28 @@ def _save_cache() -> None:
     )
 
 
-def _call_openai(product: Product) -> int | None:
+def _call_claude(product: Product) -> int | None:
     try:
-        from openai import OpenAI
+        import anthropic
     except ImportError:
-        logger.warning("openai package not installed; skipping AI estimation")
+        logger.warning("anthropic package not installed; skipping AI estimation")
         return None
 
     try:
-        client = OpenAI(api_key=OPENAI_API_KEY, timeout=OPENAI_TIMEOUT)
+        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY, timeout=ANTHROPIC_TIMEOUT)
 
-        response = client.chat.completions.create(
-            model=OPENAI_MODEL,
-            messages=[
-                {"role": "system", "content": _SYSTEM_PROMPT},
-                {"role": "user", "content": product.name},
-            ],
+        response = client.messages.create(
+            model=ANTHROPIC_MODEL,
+            max_tokens=20,
+            system=_SYSTEM_PROMPT,
+            messages=[{"role": "user", "content": product.name}],
         )
 
-        content = response.choices[0].message.content or ""
+        content = next(
+            (block.text for block in response.content if block.type == "text"), ""
+        )
     except Exception:
-        logger.warning("OpenAI request failed for %r", product.name, exc_info=True)
+        logger.warning("Claude request failed for %r", product.name, exc_info=True)
         return None
 
     match = _NUMBER_RE.search(content.replace(",", ""))
@@ -110,7 +111,7 @@ def estimate_price(product: Product) -> int | None:
     failed) - callers should fall back to another estimator, not treat
     it as a confirmed price of 0.
     """
-    if not OPENAI_API_KEY:
+    if not ANTHROPIC_API_KEY:
         return None
 
     cache = _load_cache()
@@ -120,7 +121,7 @@ def estimate_price(product: Product) -> int | None:
         cached_price = cache[key]
         return cached_price if cached_price > 0 else None
 
-    price = _call_openai(product)
+    price = _call_claude(product)
 
     cache[key] = price or 0
     _save_cache()

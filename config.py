@@ -153,16 +153,16 @@ DISCOUNT_THRESHOLD = 75.0
 PROFIT_THRESHOLD = 5_000
 
 # ======================================================================
-# AI価格査定
+# AI価格査定 (Claude API)
 # ======================================================================
-# OPENAI_API_KEY が未設定の場合、AI査定は自動的にスキップされ
+# ANTHROPIC_API_KEY が未設定の場合、AI査定は自動的にスキップされ
 # price_estimator.py の固定辞書にフォールバックする (課金なし・安全側)。
 
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 
-OPENAI_MODEL = "gpt-4o-mini"
+ANTHROPIC_MODEL = "claude-haiku-4-5"
 
-OPENAI_TIMEOUT = 20.0
+ANTHROPIC_TIMEOUT = 20.0
 
 # ======================================================================
 # メール通知
