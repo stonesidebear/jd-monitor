@@ -12,13 +12,14 @@ from pathlib import Path
 from config import LOG_FILE, LOG_LEVEL
 
 
-def setup_logging(level: str = LOG_LEVEL) -> None:
+def setup_logging(level: str = LOG_LEVEL, log_file: str = LOG_FILE) -> None:
     """Configure the root logger with a console and a file handler.
 
     Args:
         level: Logging level name (e.g. "INFO", "DEBUG").
+        log_file: Path to the log file to write to.
     """
-    Path(LOG_FILE).parent.mkdir(parents=True, exist_ok=True)
+    Path(log_file).parent.mkdir(parents=True, exist_ok=True)
 
     formatter = logging.Formatter(
         fmt="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
@@ -28,7 +29,7 @@ def setup_logging(level: str = LOG_LEVEL) -> None:
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
 
-    file_handler = logging.FileHandler(LOG_FILE, encoding="utf-8")
+    file_handler = logging.FileHandler(log_file, encoding="utf-8")
     file_handler.setFormatter(formatter)
 
     root_logger = logging.getLogger()

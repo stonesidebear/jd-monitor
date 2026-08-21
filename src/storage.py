@@ -50,12 +50,12 @@ def _to_row(product: Product) -> list:
     ]
 
 
-def load_products() -> dict[str, dict]:
+def load_products(csv_path: str = CSV_PATH) -> dict[str, dict]:
     """Load the previous run's CSV, keyed by product URL.
 
     Returns an empty dict on the very first run (no CSV yet).
     """
-    path = Path(CSV_PATH)
+    path = Path(csv_path)
 
     if not path.exists():
         return {}
@@ -69,9 +69,9 @@ def load_products() -> dict[str, dict]:
     return products
 
 
-def save_products(products: list[Product]) -> None:
+def save_products(products: list[Product], csv_path: str = CSV_PATH) -> None:
     """Overwrite ``products.csv`` with the current snapshot."""
-    path = Path(CSV_PATH)
+    path = Path(csv_path)
     path.parent.mkdir(parents=True, exist_ok=True)
 
     with open(path, "w", newline="", encoding="utf-8") as f:
@@ -84,12 +84,12 @@ def save_products(products: list[Product]) -> None:
     logger.info("Saved %d products to %s", len(products), path)
 
 
-def save_history(products: list[Product]) -> None:
-    """Append today's snapshot to ``data/history/YYYY-MM-DD.csv``."""
-    history_dir = Path(HISTORY_DIR)
-    history_dir.mkdir(parents=True, exist_ok=True)
+def save_history(products: list[Product], history_dir: str = HISTORY_DIR) -> None:
+    """Append today's snapshot to ``{history_dir}/YYYY-MM-DD.csv``."""
+    history_path = Path(history_dir)
+    history_path.mkdir(parents=True, exist_ok=True)
 
-    path = history_dir / f"{date.today().isoformat()}.csv"
+    path = history_path / f"{date.today().isoformat()}.csv"
 
     with open(path, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)

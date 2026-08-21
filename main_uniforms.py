@@ -1,8 +1,14 @@
-"""JD Monitor v1.0 - entry point.
+"""JD Uniforms Monitor - entry point.
 
-Scrapes the JD Sports Global SALE listing, diffs it against the previous
-run, calculates expected profit, logs notification targets and persists
-the new snapshot.
+Scrapes JD Sports Global's "home/away/third/fourth" kit search (no brand
+filter, since replica kits come from vendors outside the main SALE
+monitor's brand whitelist), and notifies on every genuinely new product
+regardless of discount/profit - kit stock is time-sensitive, so "a new
+one just appeared" is itself the useful signal here.
+
+Pipeline shape mirrors main.py (see src/diff.py for the shared diff
+logic); only the URL, storage paths, notify predicate and mail routing
+differ.
 """
 
 from __future__ import annotations
@@ -10,12 +16,22 @@ from __future__ import annotations
 import argparse
 import logging
 
+from config_uniforms import (
+    CSV_PATH,
+    HISTORY_DIR,
+    LOG_FILE,
+    MAIL_TO,
+    SUBJECT_PREFIX,
+    URL,
+    WATCH_PAGE_COUNT_PATH,
+)
 from src.diff import already_notified_urls, apply_diff
 from src.logging_config import setup_logging
 from src.mailer import send_notification_email
 from src.mercari import attach_mercari_prices
 from src.notifier import get_notifications, print_notifications
 from src.parser import parse
+from src.product import Product
 from src.profit import calculate_all
 from src.scraper import JDScraper
 from src.storage import load_products, save_history, save_products
@@ -24,8 +40,13 @@ from src.watch import load_page_count, save_page_count
 logger = logging.getLogger(__name__)
 
 
+def _should_notify(product: Product) -> bool:
+    """Notify on every genuinely new kit, regardless of discount/profit."""
+    return product.is_new
+
+
 def _parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="JD Monitor v1.0")
+    parser = argparse.ArgumentParser(description="JD Uniforms Monitor")
     parser.add_argument(
         "--max-pages",
         type=int,
@@ -51,18 +72,18 @@ def _parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
-    setup_logging()
+    setup_logging(log_file=LOG_FILE)
 
     args = _parse_args()
 
     logger.info("Loading previous products...")
-    previous = load_products()
+    previous = load_products(csv_path=CSV_PATH)
     logger.info("Previous products: %d", len(previous))
 
-    with JDScraper(max_pages=args.max_pages) as scraper:
+    with JDScraper(url=URL, max_pages=args.max_pages) as scraper:
         _, total_pages = scraper.open_top_page()
 
-        previous_pages = load_page_count()
+        previous_pages = load_page_count(path=WATCH_PAGE_COUNT_PATH)
         changed = total_pages != previous_pages
 
         if not changed and not args.force:
@@ -72,7 +93,7 @@ def main() -> None:
             )
             return
 
-        save_page_count(total_pages)
+        save_page_count(total_pages, path=WATCH_PAGE_COUNT_PATH)
 
         if changed:
             logger.info(
@@ -92,7 +113,7 @@ def main() -> None:
     calculate_all(products)
 
     # 今回条件を満たした商品全体 (コンソールログ・notified永続化に使う)
-    notify_targets = get_notifications(products)
+    notify_targets = get_notifications(products, predicate=_should_notify)
 
     # そのうち前回まだ通知していなかったものだけ (メール・メルカリ相場取得に使う)
     already_notified = already_notified_urls(previous)
@@ -101,10 +122,10 @@ def main() -> None:
     if new_targets and not args.skip_mercari:
         attach_mercari_prices(new_targets)
 
-    print_notifications(products)
+    print_notifications(products, predicate=_should_notify)
 
     if not args.skip_email:
-        send_notification_email(new_targets)
+        send_notification_email(new_targets, mail_to=MAIL_TO, subject_prefix=SUBJECT_PREFIX)
 
     logger.info("=" * 60)
     logger.info("New Products    : %d", new_count)
@@ -114,8 +135,8 @@ def main() -> None:
     logger.info("Failed Pages    : %s", result.failed_pages or "none")
     logger.info("=" * 60)
 
-    save_products(products)
-    save_history(products)
+    save_products(products, csv_path=CSV_PATH)
+    save_history(products, history_dir=HISTORY_DIR)
 
 
 if __name__ == "__main__":

@@ -20,8 +20,8 @@ from src.product import Product
 logger = logging.getLogger(__name__)
 
 
-def _build_subject(products: list[Product]) -> str:
-    return f"[JD Monitor] 注目商品 {len(products)}件を検知"
+def _build_subject(products: list[Product], subject_prefix: str) -> str:
+    return f"{subject_prefix} 注目商品 {len(products)}件を検知"
 
 
 def _build_text_body(products: list[Product]) -> str:
@@ -82,7 +82,11 @@ def _build_html_body(products: list[Product]) -> str:
     return f"<html><body>{table}</body></html>"
 
 
-def send_notification_email(products: list[Product]) -> None:
+def send_notification_email(
+    products: list[Product],
+    mail_to: str = MAIL_TO,
+    subject_prefix: str = "[JD Monitor]",
+) -> None:
     """Send a single summary email listing every notified product.
 
     No-op (logged, not raised) if there is nothing to send or SMTP is
@@ -92,22 +96,22 @@ def send_notification_email(products: list[Product]) -> None:
         logger.info("No products to notify by email")
         return
 
-    if not (SMTP_USER and SMTP_PASSWORD and MAIL_TO):
+    if not (SMTP_USER and SMTP_PASSWORD and mail_to):
         logger.warning(
-            "SMTP not configured (SMTP_USER/SMTP_PASSWORD/MAIL_TO); "
+            "SMTP not configured (SMTP_USER/SMTP_PASSWORD/mail_to); "
             "skipping email notification"
         )
         return
 
     message = MIMEMultipart("alternative")
-    message["Subject"] = _build_subject(products)
+    message["Subject"] = _build_subject(products, subject_prefix)
     message["From"] = MAIL_FROM
-    message["To"] = MAIL_TO
+    message["To"] = mail_to
 
     message.attach(MIMEText(_build_text_body(products), "plain", "utf-8"))
     message.attach(MIMEText(_build_html_body(products), "html", "utf-8"))
 
-    recipients = [addr.strip() for addr in MAIL_TO.split(",") if addr.strip()]
+    recipients = [addr.strip() for addr in mail_to.split(",") if addr.strip()]
 
     try:
         with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=30) as server:
@@ -118,4 +122,4 @@ def send_notification_email(products: list[Product]) -> None:
         logger.error("Failed to send notification email", exc_info=True)
         return
 
-    logger.info("Notification email sent to %s (%d products)", MAIL_TO, len(products))
+    logger.info("Notification email sent to %s (%d products)", mail_to, len(products))

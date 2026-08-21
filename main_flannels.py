@@ -1,8 +1,12 @@
-"""JD Monitor v1.0 - entry point.
+"""Flannels Monitor - entry point.
 
-Scrapes the JD Sports Global SALE listing, diffs it against the previous
-run, calculates expected profit, logs notification targets and persists
-the new snapshot.
+Scrapes Flannels' discount-sorted men's clearance listing, diffs it
+against the previous run, calculates expected profit, logs notification
+targets and persists the new snapshot. Mirrors main.py's pipeline shape
+(see src/diff.py for the shared diff logic) but has no page-count
+skip-gate: the discount-sorted early-stop in
+:mod:`src.sites.flannels.scraper` already keeps each run cheap
+regardless of the site's total catalog size.
 """
 
 from __future__ import annotations
@@ -10,27 +14,27 @@ from __future__ import annotations
 import argparse
 import logging
 
+from config_flannels import CSV_PATH, HISTORY_DIR, LOG_FILE, MAIL_TO, SUBJECT_PREFIX
 from src.diff import already_notified_urls, apply_diff
 from src.logging_config import setup_logging
 from src.mailer import send_notification_email
 from src.mercari import attach_mercari_prices
 from src.notifier import get_notifications, print_notifications
-from src.parser import parse
 from src.profit import calculate_all
-from src.scraper import JDScraper
+from src.sites.flannels.parser import parse
+from src.sites.flannels.scraper import FlannelsScraper
 from src.storage import load_products, save_history, save_products
-from src.watch import load_page_count, save_page_count
 
 logger = logging.getLogger(__name__)
 
 
 def _parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="JD Monitor v1.0")
+    parser = argparse.ArgumentParser(description="Flannels Monitor")
     parser.add_argument(
         "--max-pages",
         type=int,
         default=None,
-        help="Limit the number of AJAX pages fetched (debug/testing only).",
+        help="Limit the number of listing pages fetched (debug/testing only).",
     )
     parser.add_argument(
         "--skip-mercari",
@@ -42,50 +46,22 @@ def _parse_args() -> argparse.Namespace:
         action="store_true",
         help="Skip sending the notification email (debug/testing only).",
     )
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="Run the full scrape even if the page count is unchanged.",
-    )
     return parser.parse_args()
 
 
 def main() -> None:
-    setup_logging()
+    setup_logging(log_file=LOG_FILE)
 
     args = _parse_args()
 
     logger.info("Loading previous products...")
-    previous = load_products()
+    previous = load_products(csv_path=CSV_PATH)
     logger.info("Previous products: %d", len(previous))
 
-    with JDScraper(max_pages=args.max_pages) as scraper:
-        _, total_pages = scraper.open_top_page()
+    with FlannelsScraper(max_pages=args.max_pages) as scraper:
+        result = scraper.run()
 
-        previous_pages = load_page_count()
-        changed = total_pages != previous_pages
-
-        if not changed and not args.force:
-            logger.info(
-                "Catalog page count unchanged (%d pages) - skipping full scrape.",
-                total_pages,
-            )
-            return
-
-        save_page_count(total_pages)
-
-        if changed:
-            logger.info(
-                "Catalog page count changed (%s -> %d), running full scrape.",
-                previous_pages,
-                total_pages,
-            )
-        else:
-            logger.info("--force given with no page-count change, running full scrape anyway.")
-
-        result = scraper.scrape_remaining()
-
-    products = parse(result)
+    products = parse(result.pages)
 
     new_count, price_down_count = apply_diff(products, previous)
 
@@ -104,7 +80,7 @@ def main() -> None:
     print_notifications(products)
 
     if not args.skip_email:
-        send_notification_email(new_targets)
+        send_notification_email(new_targets, mail_to=MAIL_TO, subject_prefix=SUBJECT_PREFIX)
 
     logger.info("=" * 60)
     logger.info("New Products    : %d", new_count)
@@ -114,8 +90,8 @@ def main() -> None:
     logger.info("Failed Pages    : %s", result.failed_pages or "none")
     logger.info("=" * 60)
 
-    save_products(products)
-    save_history(products)
+    save_products(products, csv_path=CSV_PATH)
+    save_history(products, history_dir=HISTORY_DIR)
 
 
 if __name__ == "__main__":

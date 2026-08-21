@@ -13,6 +13,9 @@ venv/
 data/ajax/
 data/latest.html
 data/screenshots/
+data/screenshots_flannels/
+data/screenshots_uniforms/
+data/screenshots_northface/
 data/logs/
 
 # data/ai_price_cache.json and data/mercari_cache.json are intentionally

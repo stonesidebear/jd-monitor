@@ -20,7 +20,7 @@ _SYMBOL_TO_CODE = {
     "$": "USD",
 }
 
-_NUMBER_RE = re.compile(r"(\d+(?:\.\d+)?)")
+_NUMBER_RE = re.compile(r"(\d[\d,]*(?:\.\d+)?)")
 
 
 def convert(text: str) -> int:
@@ -28,6 +28,7 @@ def convert(text: str) -> int:
 
     Args:
         text: Raw price text, e.g. ``"Now £150.00"`` or ``"¥12,000"``.
+            Thousands separators are stripped before parsing.
 
     Returns:
         The price in JPY, rounded to the nearest integer. 0 if no
@@ -41,7 +42,7 @@ def convert(text: str) -> int:
     if not match:
         return 0
 
-    value = float(match.group(1))
+    value = float(match.group(1).replace(",", ""))
 
     for symbol, code in _SYMBOL_TO_CODE.items():
         if symbol in text:

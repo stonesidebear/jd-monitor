@@ -1,0 +1,98 @@
+name: JD Uniforms Monitor
+
+"on":
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "ページ数が前回と同じでも強制的にフルスクレイピングする"
+        required: false
+        type: boolean
+        default: false
+  schedule:
+    # 10分おき (jd-monitor.ymlとは別の分にずらして同時発火を避ける)。
+    # ユニフォームは在庫がすぐ売り切れるため高頻度チェックにしている。
+    - cron: "2,12,22,32,42,52 * * * *"
+
+permissions:
+  contents: write
+
+# jd-monitor.yml / flannels-monitor.yml とは独立したグループにし、
+# 片方の詰まりがもう片方をブロックしないようにする
+concurrency:
+  group: jd-uniforms-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+
+      - name: Install Playwright Browser
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: |
+          playwright install --with-deps chromium
+
+      - name: Run Monitor
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          MAIL_TO_UNIFORMS: ${{ secrets.MAIL_TO_UNIFORMS }}
+          FORCE_FULL_SCRAPE: ${{ github.event.inputs.force }}
+        run: |
+          if [ "$FORCE_FULL_SCRAPE" = "true" ]; then
+            python main_uniforms.py --force
+          else
+            python main_uniforms.py
+          fi
+
+      - name: Commit updated state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for f in data/csv_uniforms data/history_uniforms data/watch_page_count_uniforms.txt data/ai_price_cache.json data/mercari_cache.json; do
+            if [ -e "$f" ]; then
+              git add "$f"
+            fi
+          done
+          if git diff --cached --quiet; then
+            echo "No state changes to commit."
+          else
+            git commit -m "Update uniforms product state [skip ci]"
+            for attempt in 1 2 3; do
+              if git push; then
+                exit 0
+              fi
+              echo "Push rejected (attempt $attempt/3), rebasing onto latest main..."
+              git fetch origin main
+              git rebase origin/main
+            done
+            echo "Push still failing after retries." >&2
+            exit 1
+          fi

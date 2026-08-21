@@ -25,22 +25,22 @@ from config import WATCH_PAGE_COUNT_PATH
 logger = logging.getLogger(__name__)
 
 
-def load_page_count() -> int | None:
+def load_page_count(path: str = WATCH_PAGE_COUNT_PATH) -> int | None:
     """Return the page count saved by the previous run, or None."""
-    path = Path(WATCH_PAGE_COUNT_PATH)
+    file_path = Path(path)
 
-    if not path.exists():
+    if not file_path.exists():
         return None
 
     try:
-        return int(path.read_text(encoding="utf-8").strip())
+        return int(file_path.read_text(encoding="utf-8").strip())
     except (OSError, ValueError):
-        logger.warning("Watch page-count file is corrupt/unreadable: %s", path)
+        logger.warning("Watch page-count file is corrupt/unreadable: %s", file_path)
         return None
 
 
-def save_page_count(total_pages: int) -> None:
+def save_page_count(total_pages: int, path: str = WATCH_PAGE_COUNT_PATH) -> None:
     """Persist ``total_pages`` so the next run can compare against it."""
-    path = Path(WATCH_PAGE_COUNT_PATH)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(str(total_pages), encoding="utf-8")
+    file_path = Path(path)
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+    file_path.write_text(str(total_pages), encoding="utf-8")

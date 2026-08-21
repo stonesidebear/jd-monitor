@@ -118,14 +118,23 @@ class JDScraper:
             result = scraper.run()
     """
 
-    def __init__(self, headless: bool = HEADLESS, max_pages: int | None = None) -> None:
+    def __init__(
+        self,
+        url: str = URL,
+        headless: bool = HEADLESS,
+        max_pages: int | None = None,
+    ) -> None:
         """Initialize the scraper.
 
         Args:
+            url: SALE listing URL to scrape. Defaults to the JD Sports
+                Global sportswear SALE listing; other monitors (e.g.
+                uniforms, a single brand) pass their own category URL.
             headless: Whether to launch Chromium headless.
             max_pages: Optional cap on AJAX pages fetched, for local
                 testing. ``None`` means "fetch every page".
         """
+        self._url = url
         self._headless = headless
         self._max_pages = max_pages
 
@@ -201,9 +210,9 @@ class JDScraper:
 
     def _fetch_top_page(self, page: Page) -> tuple[str, int]:
         """Fetch the SALE TOP page and return (html, total_pages)."""
-        logger.info("Opening TOP page: %s", URL)
+        logger.info("Opening TOP page: %s", self._url)
 
-        page.goto(URL, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT)
+        page.goto(self._url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT)
 
         self._wait_for_cloudflare(page)
 
@@ -228,6 +237,30 @@ class JDScraper:
 
         return html, total_pages
 
+    def _fetch_top_page_with_retry(self, page: Page) -> tuple[str, int]:
+        """Fetch the TOP page, retrying with exponential backoff."""
+        for attempt in range(1, RETRY_LIMIT + 1):
+            try:
+                return self._fetch_top_page(page)
+            except (PlaywrightTimeoutError, ScraperError) as exc:
+                logger.warning(
+                    "TOP page failed (attempt %d/%d): %s",
+                    attempt,
+                    RETRY_LIMIT,
+                    exc,
+                )
+
+                screenshot_path = Path(SCREENSHOT_DIR) / f"failed_top_{attempt}.png"
+                try:
+                    page.screenshot(path=str(screenshot_path))
+                except Exception:  # pragma: no cover - best-effort debug artifact
+                    logger.debug("Could not capture failure screenshot", exc_info=True)
+
+                if attempt < RETRY_LIMIT:
+                    time.sleep(RETRY_BACKOFF_BASE**attempt)
+
+        raise ScraperError(f"TOP page failed after {RETRY_LIMIT} attempts")
+
     # ------------------------------------------------------------------
     # AJAX pages
     # ------------------------------------------------------------------
@@ -235,7 +268,7 @@ class JDScraper:
     def _fetch_ajax_page(self, page: Page, page_no: int) -> str:
         """Fetch a single AJAX page. Raises on failure."""
         start = (page_no - 1) * ITEMS_PER_PAGE
-        ajax_url = _build_ajax_url(URL, start)
+        ajax_url = _build_ajax_url(self._url, start)
 
         logger.info("Fetching page %d: %s", page_no, ajax_url)
 
@@ -300,7 +333,7 @@ class JDScraper:
 
         self._page = self._context.new_page()
 
-        main_html, total_pages = self._fetch_top_page(self._page)
+        main_html, total_pages = self._fetch_top_page_with_retry(self._page)
 
         if self._max_pages is not None:
             total_pages = min(total_pages, self._max_pages)
