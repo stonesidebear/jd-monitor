@@ -1,0 +1,73 @@
+url,name,price,was_price,discount,expected_price,mercari_price,profit,grade,is_new,is_price_down,notified
+https://m.global.jdsports.com/product/black-the-north-face-simple-dome-t-shirt/704841/,The North Face Simple Dome T-Shirt,1600,4800,66.7,1500,1785,-100,D,True,False,True
+https://m.global.jdsports.com/product/black-the-north-face-location-t-shirt/781454/,The North Face Location T-Shirt,2000,6000,66.7,2500,1653,500,D,True,False,True
+https://m.global.jdsports.com/product/black-the-north-face-mountain-sketch-t-shirt/788586/,The North Face Mountain Sketch T-Shirt,2000,6000,66.7,2500,3173,500,D,True,False,True
+https://m.global.jdsports.com/product/grey-the-north-face-motion-t-shirt/776513/,The North Face Motion T-Shirt,2400,6000,60.0,2500,1917,100,D,True,False,True
+https://m.global.jdsports.com/product/blue-the-north-face-247-embossed-t-shirt/776498/,The North Face 24/7 Embossed T-Shirt,3000,7000,57.1,1200,0,-1800,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-247-shorts/776499/,The North Face 24/7 Shorts,3000,8000,62.5,3500,3900,500,D,True,False,True
+https://m.global.jdsports.com/product/orange-the-north-face-performance-t-shirt/776521/,The North Face Performance T-Shirt,3000,8000,62.5,1500,1653,-1500,D,True,False,True
+https://m.global.jdsports.com/product/white-the-north-face-simple-dome-t-shirt/776523/,The North Face Simple Dome T-Shirt,3000,4800,37.5,1500,0,-1500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-centre-logo-t-shirt/781417/,The North Face Centre Logo T-Shirt,3000,4600,34.8,2500,0,-500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-247-shorts/781440/,The North Face 24/7 Shorts,3000,8000,62.5,3500,3305,500,D,True,False,True
+https://m.global.jdsports.com/product/white-the-north-face-globe-font-t-shirt/781441/,The North Face Globe Font T-Shirt,3000,6000,50.0,3500,0,500,D,True,False,False
+https://m.global.jdsports.com/product/blue-the-north-face-graphic-performance-t-shirt/781450/,The North Face Graphic Performance T-Shirt,3000,7000,57.1,1500,0,-1500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-247-embossed-t-shirt/781455/,The North Face 24/7 Embossed T-Shirt,3000,7000,57.1,1200,0,-1800,D,True,False,False
+https://m.global.jdsports.com/product/blue-the-north-face-fine-box-logo-t-shirt/781457/,The North Face Fine Box Logo T-Shirt,3000,5600,46.4,0,0,0,?,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-graphic-performance-t-shirt/781462/,The North Face Graphic Performance T-Shirt,3000,7000,57.1,1500,0,-1500,D,True,False,False
+https://m.global.jdsports.com/product/black-the-north-face-fine-box-logo-t-shirt/781655/,The North Face Fine Box Logo T-Shirt,3000,5600,46.4,0,0,0,?,True,False,False
+https://m.global.jdsports.com/product/green-the-north-face-notes-relax-shorts/793080/,The North Face Notes Relax Shorts,3000,9000,66.7,3500,3887,500,D,True,False,True
+https://m.global.jdsports.com/product/grey-the-north-face-notes-relax-shorts/793082/,The North Face Notes Relax Shorts,3000,9000,66.7,3500,3702,500,D,True,False,True
+https://m.global.jdsports.com/product/black-the-north-face-mountain-athletics-shorts/793960/,The North Face Mountain Athletics Shorts,3000,9000,66.7,3500,3834,500,D,True,False,True
+https://m.global.jdsports.com/product/blue-the-north-face-digital-mountain-relaxed-t-shirt/801620/,The North Face Digital Mountain Relaxed T-Shirt,3000,6000,50.0,2500,0,-500,D,True,False,False
+https://m.global.jdsports.com/product/blue-the-north-face-mountain-athletics-pocket-t-shirt/756368/,The North Face Mountain Athletics Pocket T-Shirt,4000,8000,50.0,2500,0,-1500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-performance-woven-shorts/776519/,The North Face Performance Woven Shorts,4000,9000,55.6,3500,0,-500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-performance-t-shirt/781439/,The North Face Performance T-Shirt,4000,8000,50.0,1500,0,-2500,D,True,False,False
+https://m.global.jdsports.com/product/green-the-north-face-performance-t-shirt/781442/,The North Face Performance T-Shirt,4000,8000,50.0,1500,0,-2500,D,True,False,False
+https://m.global.jdsports.com/product/blue-the-north-face-graphic-reaxion-shorts/781451/,The North Face Graphic Reaxion Shorts,4000,9000,55.6,3000,0,-1000,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-247-shorts/781456/,The North Face 24/7 Shorts,4000,9000,55.6,3500,0,-500,D,True,False,False
+https://m.global.jdsports.com/product/blue-the-north-face-performance-t-shirt/781460/,The North Face Performance T-Shirt,4000,8000,50.0,1500,0,-2500,D,True,False,False
+https://m.global.jdsports.com/product/blue-the-north-face-performance-shorts/781461/,The North Face Performance Shorts,4000,9000,55.6,3500,0,-500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-graphic-reaxion-shorts/781463/,The North Face Graphic Reaxion Shorts,4000,9000,55.6,3000,0,-1000,D,True,False,False
+https://m.global.jdsports.com/product/white-the-north-face-liquid-box-oversized-t-shirt/781467/,The North Face Liquid Box Oversized T-Shirt,4000,6000,33.3,2800,0,-1200,D,True,False,False
+https://m.global.jdsports.com/product/black-the-north-face-liquid-box-oversized-t-shirt/781469/,The North Face Liquid Box Oversized T-Shirt,4000,6000,33.3,2800,0,-1200,D,True,False,False
+https://m.global.jdsports.com/product/green-the-north-face-notes-relaxed-t-shirt/793079/,The North Face Notes Relaxed T-Shirt,4000,8000,50.0,2500,0,-1500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-tek-track-pants/756352/,The North Face Tek Track Pants,5000,15000,66.7,3500,2975,-1500,D,True,False,True
+https://m.global.jdsports.com/product/blue-the-north-face-247-all-over-print-camo-shorts/756362/,The North Face 24/7 All Over Print Camo Shorts,5000,9000,44.4,3500,0,-1500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-247-emboss-14-zip-top/776500/,The North Face 24/7 Emboss 1/4 Zip Top,5000,10000,50.0,4500,0,-500,D,True,False,False
+https://m.global.jdsports.com/product/green-the-north-face-trishul-cargo-shorts/776503/,The North Face Trishul Cargo Shorts,5000,11000,54.5,3500,0,-1500,D,True,False,False
+https://m.global.jdsports.com/product/blue-the-north-face-performance-shorts/776511/,The North Face Performance Shorts,5000,9000,44.4,3500,0,-1500,D,True,False,False
+https://m.global.jdsports.com/product/brown-the-north-face-trishul-cargo-shorts/776522/,The North Face Trishul Cargo Shorts,5000,11000,54.5,3500,0,-1500,D,True,False,False
+https://m.global.jdsports.com/product/green-the-north-face-traction-v-mules/461982/,The North Face Traction V Mules,6000,13000,53.8,5500,0,-500,D,True,False,False
+https://m.global.jdsports.com/product/black-the-north-face-y2k-duffle-bag/691941/,The North Face Y2K Duffle Bag,6000,13000,53.8,8000,0,2000,D,True,False,False
+https://m.global.jdsports.com/product/black-the-north-face-mountain-athletics-fleece-joggers/781410/,The North Face Mountain Athletics Fleece Joggers,6000,13000,53.8,4500,0,-1500,D,True,False,False
+https://m.global.jdsports.com/product/black-the-north-face-grid-reflective-belt-shorts/781468/,The North Face Grid Reflective Belt Shorts,6000,13000,53.8,3500,0,-2500,D,True,False,False
+https://m.global.jdsports.com/product/black-the-north-face-notes-open-hem-joggers/793077/,The North Face Notes Open Hem Joggers,6000,14000,57.1,4500,0,-1500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-tek-track-pants/761481/,The North Face Tek Track Pants,7000,15000,53.3,3500,0,-3500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-fine-box-hoodie/776362/,The North Face Fine Box Hoodie,7000,14000,50.0,3500,0,-3500,D,True,False,False
+https://m.global.jdsports.com/product/blue-the-north-face-performance-woven-track-pants/776509/,The North Face Performance Woven Track Pants,7000,15000,53.3,3500,0,-3500,D,True,False,False
+https://m.global.jdsports.com/product/black-the-north-face-mountain-athletics-fleece-overhead-hoodie/781409/,The North Face Mountain Athletics Fleece Overhead Hoodie,7000,15000,53.3,8500,0,1500,D,True,False,False
+https://m.global.jdsports.com/product/green-the-north-face-tour-graphic-oversized-hoodie/792415/,The North Face Tour Graphic Oversized Hoodie,7000,14000,50.0,3500,0,-3500,D,True,False,False
+https://m.global.jdsports.com/product/green-the-north-face-notes-open-hem-joggers/793078/,The North Face Notes Open Hem Joggers,7000,14000,50.0,4500,0,-2500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-trishull-track-pants/728810/,The North Face Trishull Track Pants,8000,16000,50.0,3500,0,-4500,D,True,False,False
+https://m.global.jdsports.com/product/black-the-north-face-tek-12-zip-top/761505/,The North Face Tek 1/2 Zip Top,8000,16000,50.0,3500,0,-4500,D,True,False,False
+https://m.global.jdsports.com/product/blue-the-north-face-mountain-athletics-poly-track-pants/776505/,The North Face Mountain Athletics Poly Track Pants,8000,16000,50.0,3500,0,-4500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-mountain-athletics-fleece-track-pants/781447/,The North Face Mountain Athletics Fleece Track Pants,8000,16000,50.0,8500,0,500,D,True,False,False
+https://m.global.jdsports.com/product/black-the-north-face-247-woven-track-pants/781464/,The North Face 24/7 Woven Track Pants,8000,13000,38.5,3500,0,-4500,D,True,False,False
+https://m.global.jdsports.com/product/black-the-north-face-red-box-joggers/781475/,The North Face Red Box Joggers,8000,18000,55.6,3500,0,-4500,D,True,False,False
+https://m.global.jdsports.com/product/black-the-north-face-box-fleece-hoodie/785386/,The North Face Box Fleece Hoodie,8000,16000,50.0,4500,0,-3500,D,True,False,False
+https://m.global.jdsports.com/product/black-the-north-face-box-fleece-track-pants/785387/,The North Face Box Fleece Track Pants,8000,15000,46.7,8500,0,500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-tek-full-zip-hoodie/776489/,The North Face Tek Full Zip Hoodie,9000,18000,50.0,5800,0,-3200,D,True,False,False
+https://m.global.jdsports.com/product/brown-the-north-face-tek-track-pants/776495/,The North Face Tek Track Pants,9000,15000,40.0,3500,0,-5500,D,True,False,False
+https://m.global.jdsports.com/product/blue-the-north-face-performance-woven-jacket/776496/,The North Face Performance Woven Jacket,9000,19000,52.6,3500,0,-5500,D,True,False,False
+https://m.global.jdsports.com/product/orange-the-north-face-vent-jacket/776520/,The North Face Vent Jacket,9000,20000,55.0,5000,0,-4000,D,True,False,False
+https://m.global.jdsports.com/product/white-the-north-face-vent-jacket/781438/,The North Face Vent Jacket,9000,20000,55.0,5000,0,-4000,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-vent-jacket/781443/,The North Face Vent Jacket,9000,20000,55.0,5000,0,-4000,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-performance-woven-full-zip-hooded-jacket/781448/,The North Face Performance Woven Full Zip Hooded Jacket,9000,19000,52.6,4500,0,-4500,D,True,False,False
+https://m.global.jdsports.com/product/blue-the-north-face-red-box-12-zip-fleece/781478/,The North Face Red Box 1/2 Zip Fleece,9000,17000,47.1,8500,0,-500,D,True,False,False
+https://m.global.jdsports.com/product/blue-the-north-face-red-box-joggers/781479/,The North Face Red Box Joggers,9000,18000,50.0,3500,0,-5500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-247-woven-hoodie/781494/,The North Face 24/7 Woven Hoodie,9000,18000,50.0,3500,0,-5500,D,True,False,False
+https://m.global.jdsports.com/product/brown-the-north-face-trishull-jacket/776501/,The North Face Trishull Jacket,10000,22000,54.5,8500,0,-1500,D,True,False,False
+https://m.global.jdsports.com/product/blue-the-north-face-mountain-athletics-full-zip-poly-hoodie/776504/,The North Face Mountain Athletics Full Zip Poly Hoodie,10000,21000,52.4,5500,0,-4500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-trishull-full-zip-jacket/776506/,The North Face Trishull Full Zip Jacket,10000,22000,54.5,8500,0,-1500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-performance-woven-full-zip-hooded-jacket/776516/,The North Face Performance Woven Full Zip Hooded Jacket,10000,19000,47.4,4500,0,-5500,D,True,False,False
+https://m.global.jdsports.com/product/grey-the-north-face-mountain-athletics-full-zip-hoodie/781446/,The North Face Mountain Athletics Full Zip Hoodie,10000,21000,52.4,8000,0,-2000,D,True,False,False
