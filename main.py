@@ -10,9 +10,10 @@ from __future__ import annotations
 import argparse
 import logging
 
+from config import URL
 from src.diff import already_notified_urls, apply_diff
 from src.logging_config import setup_logging
-from src.mailer import send_notification_email
+from src.mailer import send_notification_email, send_update_detected_email
 from src.mercari import attach_mercari_prices
 from src.notifier import get_notifications, print_notifications
 from src.parser import parse
@@ -80,6 +81,8 @@ def main() -> None:
                 previous_pages,
                 total_pages,
             )
+            if not args.skip_email:
+                send_update_detected_email(URL, previous_pages, total_pages)
         else:
             logger.info("--force given with no page-count change, running full scrape anyway.")
 

@@ -82,6 +82,37 @@ def _build_html_body(products: list[Product]) -> str:
     return f"<html><body>{table}</body></html>"
 
 
+def _send_email(subject: str, text_body: str, html_body: str, mail_to: str) -> bool:
+    """Send one email. Returns True on success, False on any failure/no-op."""
+    if not (SMTP_USER and SMTP_PASSWORD and mail_to):
+        logger.warning(
+            "SMTP not configured (SMTP_USER/SMTP_PASSWORD/mail_to); "
+            "skipping email notification"
+        )
+        return False
+
+    message = MIMEMultipart("alternative")
+    message["Subject"] = subject
+    message["From"] = MAIL_FROM
+    message["To"] = mail_to
+
+    message.attach(MIMEText(text_body, "plain", "utf-8"))
+    message.attach(MIMEText(html_body, "html", "utf-8"))
+
+    recipients = [addr.strip() for addr in mail_to.split(",") if addr.strip()]
+
+    try:
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=30) as server:
+            server.starttls()
+            server.login(SMTP_USER, SMTP_PASSWORD)
+            server.sendmail(MAIL_FROM, recipients, message.as_string())
+    except Exception:
+        logger.error("Failed to send email", exc_info=True)
+        return False
+
+    return True
+
+
 def send_notification_email(
     products: list[Product],
     mail_to: str = MAIL_TO,
@@ -96,30 +127,47 @@ def send_notification_email(
         logger.info("No products to notify by email")
         return
 
-    if not (SMTP_USER and SMTP_PASSWORD and mail_to):
-        logger.warning(
-            "SMTP not configured (SMTP_USER/SMTP_PASSWORD/mail_to); "
-            "skipping email notification"
-        )
-        return
+    subject = _build_subject(products, subject_prefix)
+    text_body = _build_text_body(products)
+    html_body = _build_html_body(products)
 
-    message = MIMEMultipart("alternative")
-    message["Subject"] = _build_subject(products, subject_prefix)
-    message["From"] = MAIL_FROM
-    message["To"] = mail_to
+    if _send_email(subject, text_body, html_body, mail_to):
+        logger.info("Notification email sent to %s (%d products)", mail_to, len(products))
 
-    message.attach(MIMEText(_build_text_body(products), "plain", "utf-8"))
-    message.attach(MIMEText(_build_html_body(products), "html", "utf-8"))
 
-    recipients = [addr.strip() for addr in mail_to.split(",") if addr.strip()]
+def send_update_detected_email(
+    site_url: str,
+    previous_pages: int | None,
+    total_pages: int,
+    mail_to: str = MAIL_TO,
+    subject_prefix: str = "[JD Monitor]",
+) -> None:
+    """Send a quick heads-up the moment a catalog change is detected.
 
-    try:
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=30) as server:
-            server.starttls()
-            server.login(SMTP_USER, SMTP_PASSWORD)
-            server.sendmail(MAIL_FROM, recipients, message.as_string())
-    except Exception:
-        logger.error("Failed to send notification email", exc_info=True)
-        return
+    Sent before the (slow) full scrape / AI estimation / notify pipeline
+    runs, so the user can go check time-sensitive items (e.g. kits that
+    sell out fast) themselves instead of waiting minutes for the full
+    "注目商品" email. No-op (logged, not raised) if SMTP is not
+    configured.
+    """
+    subject = f"{subject_prefix} 更新を検知 - 注目商品を判定中..."
 
-    logger.info("Notification email sent to %s (%d products)", mail_to, len(products))
+    was_text = str(previous_pages) if previous_pages is not None else "unknown"
+
+    text_body = (
+        f"ページ数が {was_text} -> {total_pages} に変化しました。\n\n"
+        "これから注目商品の判定(AI査定・メルカリ相場取得)を行います。"
+        "数分かかることがあるため、急ぎの場合は先にサイトを直接確認してください。\n\n"
+        f"{site_url}"
+    )
+    html_body = (
+        "<html><body>"
+        f"<p>ページ数が {was_text} &rarr; {total_pages} に変化しました。</p>"
+        "<p>これから注目商品の判定(AI査定・メルカリ相場取得)を行います。"
+        "数分かかることがあるため、急ぎの場合は先にサイトを直接確認してください。</p>"
+        f'<p><a href="{html.escape(site_url)}">{html.escape(site_url)}</a></p>'
+        "</body></html>"
+    )
+
+    if _send_email(subject, text_body, html_body, mail_to):
+        logger.info("Update-detected email sent to %s", mail_to)
