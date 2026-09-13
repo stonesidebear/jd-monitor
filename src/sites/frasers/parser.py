@@ -1,14 +1,16 @@
-"""HTML -> Product parsing for Flannels' clearance listing.
+"""HTML -> Product parsing for Frasers Group platform listings.
 
-Each page's HTML is expected to already have every product card fully
-rendered (see :mod:`src.sites.flannels.scraper`, which scrolls the
-virtualized grid before capturing the page) - this module just extracts
-data from the resulting markup.
+Shared by every site on this platform (Flannels, Sports Direct, ...) -
+see :mod:`src.sites.frasers.scraper` for why one parser can serve all of
+them. Each page's HTML is expected to already have every product card
+fully rendered (the scraper scrolls the virtualized grid before
+capturing the page) - this module just extracts data from the markup.
 """
 
 from __future__ import annotations
 
 import logging
+import urllib.parse
 
 from bs4 import BeautifulSoup
 from bs4.element import Tag
@@ -27,7 +29,7 @@ def _extract_text(item: Tag, selector: str) -> str:
     return node.get_text(" ", strip=True) if node else ""
 
 
-def _parse_card(card: Tag) -> Product | None:
+def _parse_card(card: Tag, base_url: str) -> Product | None:
     """Convert a single ``[data-testid="product-card"]`` into a Product."""
     if card.select_one(SPONSORED_LABEL_SELECTOR) is not None:
         return None
@@ -36,7 +38,7 @@ def _parse_card(card: Tag) -> Product | None:
     if not href:
         return None
 
-    url = href if href.startswith("http") else f"https://www.flannels.com{href}"
+    url = href if href.startswith("http") else urllib.parse.urljoin(base_url, href)
 
     brand = _extract_text(card, '[data-testid="product-card-brand"]')
     name_suffix = _extract_text(card, '[data-testid="product-card-name-without-brand"]')
@@ -63,17 +65,23 @@ def _parse_card(card: Tag) -> Product | None:
     )
 
 
-def parse_page(html: str) -> list[Product]:
-    """Parse a single fully-rendered listing page into Products."""
+def parse_page(html: str, base_url: str) -> list[Product]:
+    """Parse a single fully-rendered listing page into Products.
+
+    Args:
+        html: The page's fully-rendered HTML.
+        base_url: The listing URL this page came from, used to resolve
+            relative product hrefs to absolute URLs.
+    """
     soup = BeautifulSoup(html, "html.parser")
     cards = soup.select(PRODUCT_CARD_SELECTOR)
 
-    products = [_parse_card(card) for card in cards]
+    products = [_parse_card(card, base_url) for card in cards]
 
     return [p for p in products if p is not None]
 
 
-def parse(html_pages: list[str]) -> list[Product]:
+def parse(html_pages: list[str], base_url: str) -> list[Product]:
     """Parse every page into a deduplicated Product list."""
     products: list[Product] = []
     seen_urls: set[str] = set()
@@ -81,7 +89,7 @@ def parse(html_pages: list[str]) -> list[Product]:
     logger.info("Parsing %d HTML page(s)", len(html_pages))
 
     for page_no, html in enumerate(html_pages, start=1):
-        page_products = parse_page(html)
+        page_products = parse_page(html, base_url)
 
         logger.debug("Page %02d: %d parsed items", page_no, len(page_products))
 

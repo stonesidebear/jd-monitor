@@ -1,17 +1,23 @@
-"""Flannels clearance listing scraper.
+"""Scraper for Frasers Group's shared e-commerce platform.
 
-Flannels runs Akamai Bot Manager, which fingerprints and blocks headless
-Chromium at the HTTP/2 layer (confirmed via manual testing:
+Flannels and Sports Direct (confirmed via manual testing: identical
+``data-testid`` markup, identical ``?sort=...&sortDirection=...&dcp=N``
+URL scheme, identical 59-items-per-page virtualized grid) both run on
+this platform, so one scraper serves every site built on it - a config
+module (e.g. ``config_flannels.py``, ``config_sportsdirect.py``) supplies
+the URL and per-site tuning, this module supplies the mechanics.
+
+The platform runs Akamai Bot Manager, which fingerprints and blocks
+headless Chromium at the HTTP/2 layer (confirmed via manual testing:
 ``headless=True`` fails immediately with ``ERR_HTTP2_PROTOCOL_ERROR``,
-``headless=False`` succeeds). This scraper therefore always launches a
-full (non-headless) browser - see ``config_flannels.HEADLESS`` and the
-``xvfb-run`` wrapper in the GitHub Actions workflow that gives it a
-virtual display in CI.
+``headless=False`` succeeds). Callers should launch with
+``headless=False`` - see the ``xvfb-run`` wrapper in the GitHub Actions
+workflows that gives it a virtual display in CI.
 
-The listing is sorted by discount percentage (descending), so instead of
-walking the entire ~15,000-item catalog like :mod:`src.scraper` does for
-JD Sports, this scraper stops as soon as a page's highest discount drops
-below ``MIN_DISCOUNT_TO_CONTINUE``. Each page's product grid is also
+Listings are sorted by discount percentage (descending), so instead of
+walking an entire catalog like :mod:`src.scraper` does for JD Sports,
+this scraper stops as soon as a page's highest discount drops below
+``min_discount_to_continue``. Each page's product grid is also
 virtualized (only ~14 of ~59 cards exist in the DOM until scrolled), so
 every page is scrolled to the bottom before its HTML is captured.
 """
@@ -32,31 +38,40 @@ from playwright.sync_api import (
     sync_playwright,
 )
 
-from config_flannels import (
-    BASE_URL,
-    HEADLESS,
-    ITEMS_PER_PAGE,
-    LOCALE,
-    MAX_PAGES,
-    MIN_DISCOUNT_TO_CONTINUE,
-    PAGE_TIMEOUT,
-    REQUEST_DELAY_MAX,
-    REQUEST_DELAY_MIN,
-    RETRY_BACKOFF_BASE,
-    RETRY_LIMIT,
-    SCREENSHOT_DIR,
-    SCROLL_MAX_ROUNDS,
-    SCROLL_PAUSE_MS,
-    SCROLL_STEP_PX,
-    SELECTOR_TIMEOUT,
-    SORT_QUERY,
-    USER_AGENT,
-    VIEWPORT_HEIGHT,
-    VIEWPORT_WIDTH,
-)
-from src.sites.flannels.parser import PRODUCT_CARD_SELECTOR, parse_page
+from src.sites.frasers.parser import PRODUCT_CARD_SELECTOR, parse_page
 
 logger = logging.getLogger(__name__)
+
+# プラットフォーム共通の挙動 (Flannels/Sports Directで共通に確認済み)。
+# サイト固有の値は FrasersScraper のコンストラクタ引数で渡す。
+
+VIEWPORT_WIDTH = 1400
+VIEWPORT_HEIGHT = 2000
+
+USER_AGENT = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/138.0.0.0 Safari/537.36"
+)
+
+LOCALE = "en-GB"
+
+PAGE_TIMEOUT = 60_000
+SELECTOR_TIMEOUT = 20_000
+
+ITEMS_PER_PAGE = 59
+
+SCROLL_STEP_PX = 3000
+SCROLL_PAUSE_MS = 400
+SCROLL_MAX_ROUNDS = 20
+
+RETRY_LIMIT = 3
+RETRY_BACKOFF_BASE = 2.0
+
+REQUEST_DELAY_MIN = 1.5
+REQUEST_DELAY_MAX = 3.0
+
+SORT_QUERY = "sort=DISCOUNT_PERCENTAGE&sortDirection=DESC"
 
 _STEALTH_INIT_SCRIPT = """
 Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
@@ -79,30 +94,48 @@ class ScrapeResult:
     stopped_early: bool = False
 
 
-def _build_url(page_no: int) -> str:
-    if page_no == 1:
-        return f"{BASE_URL}?{SORT_QUERY}"
-    return f"{BASE_URL}?{SORT_QUERY}&dcp={page_no}"
-
-
-class FlannelsScraper:
-    """Playwright-driven scraper for Flannels' discount-sorted clearance listing.
+class FrasersScraper:
+    """Playwright-driven scraper for a Frasers Group discount-sorted listing.
 
     Usage::
 
-        with FlannelsScraper() as scraper:
+        with FrasersScraper(base_url=..., min_discount_to_continue=60.0,
+                             screenshot_dir="data/screenshots_x") as scraper:
             result = scraper.run()
     """
 
-    def __init__(self, headless: bool = HEADLESS, max_pages: int | None = None) -> None:
+    def __init__(
+        self,
+        base_url: str,
+        min_discount_to_continue: float,
+        screenshot_dir: str,
+        max_pages: int = 20,
+        headless: bool = False,
+    ) -> None:
+        """Initialize the scraper.
+
+        Args:
+            base_url: Listing URL (without the sort/pagination query
+                string), e.g. ``"https://www.flannels.com/clearance/men/..."``.
+            min_discount_to_continue: Stop fetching further pages once a
+                page's highest discount drops below this.
+            screenshot_dir: Where to save debug/failure screenshots.
+            max_pages: Safety cap in case the discount never drops
+                below the floor.
+            headless: Whether to launch Chromium headless. Should stay
+                False against this platform - see module docstring.
+        """
+        self._base_url = base_url
+        self._min_discount_to_continue = min_discount_to_continue
+        self._screenshot_dir = screenshot_dir
+        self._max_pages = max_pages
         self._headless = headless
-        self._max_pages = max_pages if max_pages is not None else MAX_PAGES
 
         self._playwright = None
         self._browser: Browser | None = None
         self._context: BrowserContext | None = None
 
-    def __enter__(self) -> "FlannelsScraper":
+    def __enter__(self) -> "FrasersScraper":
         self._playwright = sync_playwright().start()
 
         self._browser = self._playwright.chromium.launch(
@@ -117,7 +150,7 @@ class FlannelsScraper:
         )
         self._context.add_init_script(_STEALTH_INIT_SCRIPT)
 
-        Path(SCREENSHOT_DIR).mkdir(parents=True, exist_ok=True)
+        Path(self._screenshot_dir).mkdir(parents=True, exist_ok=True)
 
         return self
 
@@ -128,6 +161,11 @@ class FlannelsScraper:
             self._browser.close()
         if self._playwright is not None:
             self._playwright.stop()
+
+    def _build_url(self, page_no: int) -> str:
+        if page_no == 1:
+            return f"{self._base_url}?{SORT_QUERY}"
+        return f"{self._base_url}?{SORT_QUERY}&dcp={page_no}"
 
     # ------------------------------------------------------------------
     # Virtualized grid handling
@@ -163,7 +201,7 @@ class FlannelsScraper:
     # ------------------------------------------------------------------
 
     def _fetch_page(self, page: Page, page_no: int) -> str:
-        url = _build_url(page_no)
+        url = self._build_url(page_no)
 
         logger.info("Fetching page %d: %s", page_no, url)
 
@@ -190,7 +228,7 @@ class FlannelsScraper:
                     exc,
                 )
 
-                screenshot_path = Path(SCREENSHOT_DIR) / f"failed_{page_no:04d}_{attempt}.png"
+                screenshot_path = Path(self._screenshot_dir) / f"failed_{page_no:04d}_{attempt}.png"
                 try:
                     page.screenshot(path=str(screenshot_path))
                 except Exception:  # pragma: no cover - best-effort debug artifact
@@ -209,7 +247,7 @@ class FlannelsScraper:
     def run(self) -> ScrapeResult:
         """Fetch pages (highest discount first) until the discount tails off."""
         if self._context is None:
-            raise RuntimeError("FlannelsScraper must be used as a context manager")
+            raise RuntimeError("FrasersScraper must be used as a context manager")
 
         page = self._context.new_page()
 
@@ -228,7 +266,7 @@ class FlannelsScraper:
 
                 pages.append(html)
 
-                page_products = parse_page(html)
+                page_products = parse_page(html, self._base_url)
 
                 if not page_products:
                     logger.info("Page %d had no parsable products, stopping.", page_no)
@@ -237,12 +275,12 @@ class FlannelsScraper:
 
                 max_discount = max(p.discount for p in page_products)
 
-                if max_discount < MIN_DISCOUNT_TO_CONTINUE:
+                if max_discount < self._min_discount_to_continue:
                     logger.info(
                         "Page %d max discount %.1f%% < %.1f%%, stopping.",
                         page_no,
                         max_discount,
-                        MIN_DISCOUNT_TO_CONTINUE,
+                        self._min_discount_to_continue,
                     )
                     stopped_early = True
                     break
@@ -253,7 +291,7 @@ class FlannelsScraper:
                 logger.warning(
                     "Reached MAX_PAGES=%d without discount dropping below %.1f%%.",
                     self._max_pages,
-                    MIN_DISCOUNT_TO_CONTINUE,
+                    self._min_discount_to_continue,
                 )
         finally:
             page.close()
@@ -266,9 +304,3 @@ class FlannelsScraper:
         )
 
         return ScrapeResult(pages=pages, failed_pages=failed_pages, stopped_early=stopped_early)
-
-
-def scrape(max_pages: int | None = None) -> ScrapeResult:
-    """Convenience wrapper: run a full scrape and return the result."""
-    with FlannelsScraper(max_pages=max_pages) as scraper:
-        return scraper.run()

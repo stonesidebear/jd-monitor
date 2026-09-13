@@ -1,11 +1,13 @@
 """Flannels Monitor - site-specific configuration.
 
-Mirrors ``config.py`` but scoped to Flannels' clearance listing. Shared
-secrets/thresholds (AI estimation, SMTP, Mercari, grading) live only in
-``config.py`` - the modules that use them (``src.profit``,
-``src.ai_estimator``, ``src.mercari``, ``src.mailer``, ``src.currency``)
-already import them from there directly, so this file only defines what
-genuinely differs for Flannels.
+Flannels runs on Frasers Group's shared platform (see
+``src.sites.frasers``), so this file only defines what's genuinely
+specific to Flannels: the listing URL, discount cutoff, storage paths
+and mail routing. Platform mechanics (Playwright settings, virtualized
+grid handling, retry/scroll behavior) live in
+``src.sites.frasers.scraper`` since they're identical across every site
+on this platform. Shared secrets/thresholds (AI estimation, SMTP,
+Mercari, grading) live only in ``config.py``.
 """
 
 from __future__ import annotations
@@ -13,18 +15,14 @@ from __future__ import annotations
 import os
 
 # ======================================================================
-# 対象URL / ソート / ページネーション
+# 対象URL
 # ======================================================================
 # 割引率降順ソートなので、全15,000件超のカタログを毎回スクレイプする必要
 # はない。上位ページ(割引率が高いページ)だけを見て、割引率が
-# MIN_DISCOUNT_TO_CONTINUE を下回ったら以降のページ取得を打ち切る。
+# MIN_DISCOUNT_TO_CONTINUE を下回ったら以降のページ取得を打ち切る
+# (src.sites.frasers.scraper参照)。
 
 BASE_URL = "https://www.flannels.com/clearance/men/shop-by-price/under-250"
-
-SORT_QUERY = "sort=DISCOUNT_PERCENTAGE&sortDirection=DESC"
-
-# 1ページあたりの商品数 (Flannelsのページネーション固定値)
-ITEMS_PER_PAGE = 59
 
 # 安全装置: 割引率での早期打ち切りが機能しなかった場合でも、
 # 最大でもこのページ数までしか取得しない
@@ -35,7 +33,7 @@ MAX_PAGES = 20
 MIN_DISCOUNT_TO_CONTINUE = 60.0
 
 # ======================================================================
-# Playwright / ブラウザ
+# Playwright
 # ======================================================================
 # FlannelsはAkamai Bot Managerを使っており、headlessモードのChromiumを
 # HTTP/2フィンガープリントで検知してブロックする(実機検証済み: headless
@@ -45,48 +43,6 @@ MIN_DISCOUNT_TO_CONTINUE = 60.0
 
 HEADLESS = False
 
-VIEWPORT_WIDTH = 1400
-VIEWPORT_HEIGHT = 2000
-
-USER_AGENT = (
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/138.0.0.0 Safari/537.36"
-)
-
-LOCALE = "en-GB"
-
-# ページ取得のタイムアウト (ms)
-PAGE_TIMEOUT = 60_000
-
-# 商品リスト待機のタイムアウト (ms)
-SELECTOR_TIMEOUT = 20_000
-
-# ======================================================================
-# 仮想スクロール対策
-# ======================================================================
-# 各ページの商品グリッドは仮想スクロール(react-window的な実装)で描画
-# されており、ページ読み込み直後は59件中14件程度しかDOMに存在しない。
-# 最下部までスクロールしてすべてのカードを描画させてから取得する。
-
-SCROLL_STEP_PX = 3000
-
-SCROLL_PAUSE_MS = 400
-
-SCROLL_MAX_ROUNDS = 20
-
-# ======================================================================
-# リトライ / レート制御
-# ======================================================================
-
-RETRY_LIMIT = 3
-
-RETRY_BACKOFF_BASE = 2.0
-
-REQUEST_DELAY_MIN = 1.5
-
-REQUEST_DELAY_MAX = 3.0
-
 # ======================================================================
 # 保存先パス
 # ======================================================================
@@ -94,8 +50,6 @@ REQUEST_DELAY_MAX = 3.0
 # は専用ディレクトリに分ける。AI査定キャッシュ・メルカリキャッシュは
 # 商品名がキーで、サイトが違っても同じ商品なら使い回せるため、
 # config.py のものをそのまま共有する(再利用でコスト削減になる)。
-
-CSV_DIR = "data/csv_flannels"
 
 CSV_PATH = "data/csv_flannels/products.csv"
 
