@@ -278,8 +278,6 @@ class JDScraper:
         screenshot_path = Path(SCREENSHOT_DIR) / "top.png"
         page.screenshot(path=str(screenshot_path), full_page=False)
 
-        self._dismiss_cookie_banner(page, wait_ms=5_000)
-
         logger.info(
             "TOP page loaded: %s bytes, %d products across %d pages",
             f"{len(html):,}",
@@ -324,10 +322,11 @@ class JDScraper:
         """
         self._dismiss_cookie_banner(page)
 
-        button = page.locator(LOAD_MORE_SELECTOR)
-
-        if button.count() == 0:
-            raise ScraperError("'Load more' button not found")
+        # The button is rendered client-side after hydration (it is not in
+        # the server HTML), so on a slow machine it can appear seconds
+        # after the page "loads". Wait for it rather than assuming.
+        button = page.locator(LOAD_MORE_SELECTOR).first
+        button.wait_for(state="attached", timeout=SELECTOR_TIMEOUT)
 
         logger.info("Loading page index %d", page_index)
 
@@ -346,7 +345,10 @@ class JDScraper:
             ),
             timeout=AJAX_TIMEOUT,
         ) as response_info:
-            button.first.click(timeout=10_000)
+            # A real mouse click gets swallowed whenever the consent
+            # dialog's overlay is up (it can appear late on a slow
+            # machine), so click from JS instead - that works either way.
+            button.evaluate("el => el.click()")
 
         results = _extract_results(response_info.value.json())
 
@@ -432,6 +434,9 @@ class JDScraper:
         page = self._page
         total_pages = self._total_pages
 
+        # Best effort: the dialog shows up a few seconds after load.
+        self._dismiss_cookie_banner(page, wait_ms=10_000)
+
         hits_by_page: dict[int, list[dict]] = {0: self._first_hits}
         failed_pages: list[int] = []
 
@@ -451,6 +456,16 @@ class JDScraper:
             time.sleep(random.uniform(REQUEST_DELAY_MIN, REQUEST_DELAY_MAX))
 
         page.close()
+
+        if failed_pages:
+            # An incomplete listing must never be saved as the new state:
+            # the missing products would look "new" on the next run (a
+            # flood of re-notifications) and the catalog-size gate would
+            # then consider the catalog already handled.
+            raise ScraperError(
+                f"Incomplete scrape: {len(failed_pages)} of {total_pages} page(s) "
+                f"failed {failed_pages}; refusing to save partial data"
+            )
 
         all_hits = [hit for n in sorted(hits_by_page) for hit in hits_by_page[n]]
 

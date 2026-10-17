@@ -93,8 +93,6 @@ def main() -> None:
             )
             return
 
-        save_page_count(total_hits, path=WATCH_PAGE_COUNT_PATH)
-
         if changed:
             logger.info(
                 "Catalog size changed (%s -> %d products), running full scrape.",
@@ -141,6 +139,10 @@ def main() -> None:
 
     save_products(products, csv_path=CSV_PATH)
     save_history(products, history_dir=HISTORY_DIR)
+
+    # 取得・保存まで成功してから商品数を記録する。先に記録すると、途中で
+    # 失敗した時に次回「変化なし」と判定されて再取得されなくなる。
+    save_page_count(total_hits, path=WATCH_PAGE_COUNT_PATH)
 
 
 if __name__ == "__main__":

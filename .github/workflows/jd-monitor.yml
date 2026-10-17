@@ -73,6 +73,19 @@ jobs:
             python main.py
           fi
 
+      # 失敗した時の原因調査用に、スクリーンショット(failed_*.png等)とログを
+      # 残す。成功時は何も保存しない。
+      - name: Upload debug artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jd-monitor-debug-${{ github.run_id }}
+          path: |
+            data/screenshots/
+            data/logs/
+          if-no-files-found: ignore
+          retention-days: 3
+
       - name: Commit updated state
         run: |
           git config user.name "github-actions[bot]"
