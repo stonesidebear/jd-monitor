@@ -25,7 +25,7 @@ from config_uniforms import (
     URL,
     WATCH_PAGE_COUNT_PATH,
 )
-from src.diff import already_notified_urls, apply_diff
+from src.diff import adopt_legacy_urls, already_notified_urls, apply_diff
 from src.logging_config import setup_logging
 from src.mailer import send_notification_email
 from src.mercari import attach_mercari_prices
@@ -66,7 +66,7 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--force",
         action="store_true",
-        help="Run the full scrape even if the page count is unchanged.",
+        help="Run the full scrape even if the catalog size is unchanged.",
     )
     return parser.parse_args()
 
@@ -81,32 +81,36 @@ def main() -> None:
     logger.info("Previous products: %d", len(previous))
 
     with JDScraper(url=URL, max_pages=args.max_pages) as scraper:
-        _, total_pages = scraper.open_top_page()
+        _, total_hits = scraper.open_top_page()
 
-        previous_pages = load_page_count(path=WATCH_PAGE_COUNT_PATH)
-        changed = total_pages != previous_pages
+        previous_hits = load_page_count(path=WATCH_PAGE_COUNT_PATH)
+        changed = total_hits != previous_hits
 
         if not changed and not args.force:
             logger.info(
-                "Catalog page count unchanged (%d pages) - skipping full scrape.",
-                total_pages,
+                "Catalog size unchanged (%d products) - skipping full scrape.",
+                total_hits,
             )
             return
 
-        save_page_count(total_pages, path=WATCH_PAGE_COUNT_PATH)
+        save_page_count(total_hits, path=WATCH_PAGE_COUNT_PATH)
 
         if changed:
             logger.info(
-                "Catalog page count changed (%s -> %d), running full scrape.",
-                previous_pages,
-                total_pages,
+                "Catalog size changed (%s -> %d products), running full scrape.",
+                previous_hits,
+                total_hits,
             )
         else:
-            logger.info("--force given with no page-count change, running full scrape anyway.")
+            logger.info("--force given with no catalog-size change, running full scrape anyway.")
 
         result = scraper.scrape_remaining()
 
     products = parse(result)
+
+    migrated = adopt_legacy_urls(products, previous)
+    if migrated:
+        logger.info("Carried over %d previous row(s) from old-site URLs", migrated)
 
     new_count, price_down_count = apply_diff(products, previous)
 

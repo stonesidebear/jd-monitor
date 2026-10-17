@@ -20,7 +20,7 @@ from config import MAIL_TO as _DEFAULT_MAIL_TO
 # 対象URL
 # ======================================================================
 
-URL = "https://m.global.jdsports.com/men/brand/the-north-face/sale/?jd_sort_order=price-low-high"
+URL = "https://www.global.jdsports.com/men/brand/the-north-face/sale/"
 
 # ======================================================================
 # 通知条件

@@ -137,8 +137,8 @@ def send_notification_email(
 
 def send_update_detected_email(
     site_url: str,
-    previous_pages: int | None,
-    total_pages: int,
+    previous_count: int | None,
+    total_count: int,
     mail_to: str = MAIL_TO,
     subject_prefix: str = "[JD Monitor]",
 ) -> None:
@@ -152,17 +152,17 @@ def send_update_detected_email(
     """
     subject = f"{subject_prefix} 更新を検知 - 注目商品を判定中..."
 
-    was_text = str(previous_pages) if previous_pages is not None else "unknown"
+    was_text = str(previous_count) if previous_count is not None else "unknown"
 
     text_body = (
-        f"ページ数が {was_text} -> {total_pages} に変化しました。\n\n"
+        f"掲載商品数が {was_text} -> {total_count} に変化しました。\n\n"
         "これから注目商品の判定(AI査定・メルカリ相場取得)を行います。"
         "数分かかることがあるため、急ぎの場合は先にサイトを直接確認してください。\n\n"
         f"{site_url}"
     )
     html_body = (
         "<html><body>"
-        f"<p>ページ数が {was_text} &rarr; {total_pages} に変化しました。</p>"
+        f"<p>掲載商品数が {was_text} &rarr; {total_count} に変化しました。</p>"
         "<p>これから注目商品の判定(AI査定・メルカリ相場取得)を行います。"
         "数分かかることがあるため、急ぎの場合は先にサイトを直接確認してください。</p>"
         f'<p><a href="{html.escape(site_url)}">{html.escape(site_url)}</a></p>'

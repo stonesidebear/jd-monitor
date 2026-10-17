@@ -25,7 +25,7 @@ from config import MAIL_TO as _DEFAULT_MAIL_TO
 # 本体監視のブランドホワイトリストに含まれないメーカーのユニフォームも
 # 拾えるよう、意図的にブランド指定なしにしている。
 
-URL = "https://m.global.jdsports.com/men/sale/?q=home/away/third/fourth&jd_sort_order=price-low-high"
+URL = "https://www.global.jdsports.com/men/sale/?q=home/away/third/fourth"
 
 # ======================================================================
 # 保存先パス

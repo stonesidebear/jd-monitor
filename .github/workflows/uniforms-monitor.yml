@@ -4,7 +4,7 @@ name: JD Uniforms Monitor
   workflow_dispatch:
     inputs:
       force:
-        description: "ページ数が前回と同じでも強制的にフルスクレイピングする"
+        description: "掲載商品数が前回と同じでも強制的にフルスクレイピングする"
         required: false
         type: boolean
         default: false

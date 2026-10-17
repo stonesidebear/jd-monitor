@@ -13,8 +13,10 @@ import os
 # Target URL
 # ======================================================================
 
+# サイト移行により m.global は www.global の新サイトへリダイレクトされる。
+# 並び順パラメータ (jd_sort_order) も新サイトでは無効のため付けない。
 URL = (
-    "https://m.global.jdsports.com/"
+    "https://www.global.jdsports.com/"
     "men/brand/"
     "nike,adidas,adidas-originals,asics,"
     "berghaus,birkenstock,boss,"
@@ -34,11 +36,8 @@ URL = (
     "tommy-jeans,"
     "ugg,umbro,"
     "under-armour,vans/"
-    "sale/?jd_sort_order=price-low-high"
+    "sale/"
 )
-
-# 1ページあたりの商品数 (JD Sports AJAX ページネーションの固定値)
-ITEMS_PER_PAGE = 24
 
 # ======================================================================
 # Playwright / ブラウザ

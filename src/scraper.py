@@ -1,30 +1,38 @@
 """JD Sports Global scraper.
 
-Playwright only (no ``requests``). Fetches the SALE listing TOP page,
-reads the total page count from the pagination marker, then walks every
-AJAX page inside the same authenticated browser context so Cloudflare
-cookies and session state stay valid for the whole run.
+Playwright only (no ``requests``). JD Sports Global moved its listing
+pages to a Next.js + Algolia front end (the old ``m.global`` site now
+redirects there): the first 72 products are embedded in the page's
+``__NEXT_DATA__`` JSON, and the rest load through the "Load more"
+button, which POSTs to Algolia and appends the next 72. Everything runs
+inside one browser context so Cloudflare cookies and session state stay
+valid for the whole run.
+
+Rather than scraping rendered markup, this reads the structured product
+hits straight from the SSR data and from the Algolia responses the
+"Load more" button triggers - far less brittle than CSS selectors.
 
 Pipeline::
 
-    TOP page -> wait for #productListMain -> read data-pagescount
-             -> loop AJAX pages -> save HTML -> retry failed pages
+    TOP page -> read __NEXT_DATA__ (page-0 hits, total hit count, page count)
+             -> click "Load more" per remaining page, capturing each
+                Algolia response -> retry failed pages
 """
 
 from __future__ import annotations
 
+import json
 import logging
 import random
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from bs4 import BeautifulSoup
 from playwright.sync_api import (
     Browser,
     BrowserContext,
+    Error as PlaywrightError,
     Page,
-    TimeoutError as PlaywrightTimeoutError,
     sync_playwright,
 )
 
@@ -34,7 +42,6 @@ from config import (
     CLOUDFLARE_MAX_WAIT,
     CLOUDFLARE_WAIT_INTERVAL,
     HEADLESS,
-    ITEMS_PER_PAGE,
     LATEST_HTML,
     LOCALE,
     PAGE_TIMEOUT,
@@ -52,8 +59,12 @@ from config import (
 
 logger = logging.getLogger(__name__)
 
-PRODUCT_LIST_SELECTOR = "#productListMain"
-PAGE_COUNT_SELECTOR = "li.infiniteScrollLoader"
+# 一覧ページが描画された目印 (商品カードへのリンク)
+PRODUCT_LINK_SELECTOR = 'a[href*="/product/"]'
+
+LOAD_MORE_SELECTOR = '[data-test-id="load-more"]'
+
+COOKIE_REJECT_SELECTOR = "#onetrust-reject-all-handler"
 
 _STEALTH_INIT_SCRIPT = """
 Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
@@ -75,42 +86,48 @@ class ScraperError(Exception):
 
 @dataclass
 class ScrapeResult:
-    """Container for everything a scrape run produced."""
+    """Container for everything a scrape run produced.
 
-    main_html: str
-    ajax_pages: list[str] = field(default_factory=list)
+    ``hits`` are raw Algolia product records (see :mod:`src.parser`).
+    """
+
+    hits: list[dict] = field(default_factory=list)
+    total_hits: int = 0
     total_pages: int = 1
     failed_pages: list[int] = field(default_factory=list)
 
 
-def _build_ajax_url(base_url: str, start: int) -> str:
-    """Build the AJAX pagination URL for a given item offset.
-
-    JD Sports appends ``&from=N`` if the base URL already has a query
-    string, otherwise it starts a new one with ``?from=N``.
-    """
-    separator = "&" if "?" in base_url else "?"
-    return f"{base_url}{separator}from={start}&AJAX=1"
-
-
-def _get_total_pages(html: str) -> int:
-    """Read ``data-pagescount`` from the infinite-scroll marker."""
-    soup = BeautifulSoup(html, "html.parser")
-    loader = soup.select_one(PAGE_COUNT_SELECTOR)
-
-    if loader is None:
-        logger.warning("infiniteScrollLoader not found, assuming 1 page")
-        return 1
-
+def _requested_page(response) -> int | None:
+    """Algolia page index a captured ``/run`` request asked for, or None."""
     try:
-        return int(loader["data-pagescount"])
-    except (KeyError, ValueError):
-        logger.warning("data-pagescount missing/invalid, assuming 1 page")
-        return 1
+        body = json.loads(response.request.post_data or "")
+        return int(body["params"]["page"])
+    except (ValueError, KeyError, TypeError):
+        return None
+
+
+def _extract_results(payload: dict) -> dict:
+    """Return the first Algolia ``results`` entry from an SSR/XHR payload."""
+    try:
+        return payload["results"][0]
+    except (KeyError, IndexError, TypeError) as exc:
+        raise ScraperError(f"Unexpected Algolia response shape: {exc!r}") from exc
+
+
+def _extract_ssr_results(next_data: dict) -> dict:
+    """Return the page-0 Algolia results from the ``__NEXT_DATA__`` JSON."""
+    try:
+        initial = next_data["props"]["pageProps"]["searchServerState"]["initialResults"]
+        composition = next(iter(initial.values()))
+        return composition["results"][0]
+    except (KeyError, IndexError, TypeError, StopIteration) as exc:
+        raise ScraperError(
+            f"Listing data not found in __NEXT_DATA__ (site layout changed?): {exc!r}"
+        ) from exc
 
 
 class JDScraper:
-    """Playwright-driven scraper for the JD Sports Global SALE listing.
+    """Playwright-driven scraper for a JD Sports Global SALE listing.
 
     Usage::
 
@@ -131,8 +148,9 @@ class JDScraper:
                 Global sportswear SALE listing; other monitors (e.g.
                 uniforms, a single brand) pass their own category URL.
             headless: Whether to launch Chromium headless.
-            max_pages: Optional cap on AJAX pages fetched, for local
-                testing. ``None`` means "fetch every page".
+            max_pages: Optional cap on result pages fetched (72 products
+                each), for local testing. ``None`` means "fetch every
+                page".
         """
         self._url = url
         self._headless = headless
@@ -142,7 +160,8 @@ class JDScraper:
         self._browser: Browser | None = None
         self._context: BrowserContext | None = None
         self._page: Page | None = None
-        self._top_html: str | None = None
+        self._first_hits: list[dict] | None = None
+        self._total_hits: int = 0
         self._total_pages: int = 1
 
     def __enter__(self) -> "JDScraper":
@@ -162,7 +181,7 @@ class JDScraper:
 
         ajax_dir = Path(AJAX_DIR)
         ajax_dir.mkdir(parents=True, exist_ok=True)
-        for stale_file in ajax_dir.glob("*.html"):
+        for stale_file in [*ajax_dir.glob("*.json"), *ajax_dir.glob("*.html")]:
             stale_file.unlink()
 
         Path(SCREENSHOT_DIR).mkdir(parents=True, exist_ok=True)
@@ -179,7 +198,7 @@ class JDScraper:
             self._playwright.stop()
 
     # ------------------------------------------------------------------
-    # Cloudflare
+    # Cloudflare / cookie consent
     # ------------------------------------------------------------------
 
     def _is_cloudflare_challenge(self, page: Page) -> bool:
@@ -204,21 +223,53 @@ class JDScraper:
         if self._is_cloudflare_challenge(page):
             raise ScraperError("Cloudflare challenge did not clear in time")
 
+    def _dismiss_cookie_banner(self, page: Page, wait_ms: int = 0) -> None:
+        """Reject non-essential cookies if the consent dialog is up.
+
+        The dialog's overlay intercepts clicks on "Load more", so it has
+        to go. Best-effort: a missing banner is the normal case once it
+        has been dismissed.
+        """
+        reject = page.locator(COOKIE_REJECT_SELECTOR)
+
+        try:
+            if wait_ms:
+                reject.first.wait_for(state="visible", timeout=wait_ms)
+
+            if reject.count() > 0 and reject.first.is_visible():
+                reject.first.click(timeout=5_000)
+                page.wait_for_timeout(500)
+        except PlaywrightError:
+            logger.debug("No cookie banner to dismiss", exc_info=True)
+
     # ------------------------------------------------------------------
     # TOP page
     # ------------------------------------------------------------------
 
-    def _fetch_top_page(self, page: Page) -> tuple[str, int]:
-        """Fetch the SALE TOP page and return (html, total_pages)."""
+    def _fetch_top_page(self, page: Page) -> tuple[str, list[dict], int, int]:
+        """Fetch the TOP page; return (html, page-0 hits, total hits, pages)."""
         logger.info("Opening TOP page: %s", self._url)
 
         page.goto(self._url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT)
 
         self._wait_for_cloudflare(page)
 
-        page.wait_for_selector(
-            PRODUCT_LIST_SELECTOR, timeout=SELECTOR_TIMEOUT
+        page.wait_for_selector(PRODUCT_LINK_SELECTOR, timeout=SELECTOR_TIMEOUT)
+
+        raw = page.evaluate(
+            "() => document.getElementById('__NEXT_DATA__')?.textContent ?? null"
         )
+        if not raw:
+            raise ScraperError("__NEXT_DATA__ not found on listing page")
+
+        results = _extract_ssr_results(json.loads(raw))
+
+        hits = results.get("hits") or []
+        total_hits = int(results.get("nbHits", len(hits)))
+        total_pages = max(int(results.get("nbPages", 1)), 1)
+
+        if not hits:
+            raise ScraperError("Listing page returned no products")
 
         html = page.content()
 
@@ -227,22 +278,23 @@ class JDScraper:
         screenshot_path = Path(SCREENSHOT_DIR) / "top.png"
         page.screenshot(path=str(screenshot_path), full_page=False)
 
-        total_pages = _get_total_pages(html)
+        self._dismiss_cookie_banner(page, wait_ms=5_000)
 
         logger.info(
-            "TOP page loaded: %s bytes, %d pages total",
+            "TOP page loaded: %s bytes, %d products across %d pages",
             f"{len(html):,}",
+            total_hits,
             total_pages,
         )
 
-        return html, total_pages
+        return html, hits, total_hits, total_pages
 
-    def _fetch_top_page_with_retry(self, page: Page) -> tuple[str, int]:
+    def _fetch_top_page_with_retry(self, page: Page) -> tuple[str, list[dict], int, int]:
         """Fetch the TOP page, retrying with exponential backoff."""
         for attempt in range(1, RETRY_LIMIT + 1):
             try:
                 return self._fetch_top_page(page)
-            except (PlaywrightTimeoutError, ScraperError) as exc:
+            except (PlaywrightError, ScraperError) as exc:
                 logger.warning(
                     "TOP page failed (attempt %d/%d): %s",
                     attempt,
@@ -262,47 +314,75 @@ class JDScraper:
         raise ScraperError(f"TOP page failed after {RETRY_LIMIT} attempts")
 
     # ------------------------------------------------------------------
-    # AJAX pages
+    # "Load more" pages
     # ------------------------------------------------------------------
 
-    def _fetch_ajax_page(self, page: Page, page_no: int) -> str:
-        """Fetch a single AJAX page. Raises on failure."""
-        start = (page_no - 1) * ITEMS_PER_PAGE
-        ajax_url = _build_ajax_url(self._url, start)
+    def _load_more(self, page: Page, page_index: int) -> list[dict]:
+        """Click "Load more" once and return the hits Algolia sends back.
 
-        logger.info("Fetching page %d: %s", page_no, ajax_url)
+        Raises on failure so the caller can retry.
+        """
+        self._dismiss_cookie_banner(page)
 
-        page.goto(ajax_url, wait_until="domcontentloaded", timeout=AJAX_TIMEOUT)
+        button = page.locator(LOAD_MORE_SELECTOR)
 
-        self._wait_for_cloudflare(page)
+        if button.count() == 0:
+            raise ScraperError("'Load more' button not found")
 
-        page.wait_for_selector(
-            "li.productListItem", timeout=SELECTOR_TIMEOUT
-        )
+        logger.info("Loading page index %d", page_index)
 
-        html = page.content()
+        # Only accept the response to *this* page's request. Right after
+        # hydration the page re-runs its initial (page 0) search on its
+        # own, and that late response would otherwise be mistaken for the
+        # reply to the click - silently returning page 0 again and
+        # dropping a real page of products.
+        with page.expect_response(
+            lambda r: (
+                "algolia" in r.url
+                and "/run" in r.url
+                and r.request.method == "POST"
+                and r.ok
+                and _requested_page(r) == page_index
+            ),
+            timeout=AJAX_TIMEOUT,
+        ) as response_info:
+            button.first.click(timeout=10_000)
 
-        file_path = Path(AJAX_DIR) / f"{page_no - 2:04d}.html"
-        file_path.write_text(html, encoding="utf-8")
+        results = _extract_results(response_info.value.json())
 
-        return html
+        hits = results.get("hits") or []
 
-    def _fetch_ajax_page_with_retry(self, page: Page, page_no: int) -> str | None:
-        """Fetch one AJAX page, retrying with exponential backoff."""
+        if not hits:
+            raise ScraperError(f"Algolia returned no hits for page index {page_index}")
+
+        served_page = int(results.get("page", -1))
+
+        if served_page != page_index:
+            raise ScraperError(
+                f"Asked Algolia for page index {page_index} but got {served_page}"
+            )
+
+        file_path = Path(AJAX_DIR) / f"{page_index:04d}.json"
+        file_path.write_text(json.dumps(hits, ensure_ascii=False), encoding="utf-8")
+
+        return hits
+
+    def _load_more_with_retry(self, page: Page, page_index: int) -> list[dict] | None:
+        """Load one more page, retrying with exponential backoff."""
         for attempt in range(1, RETRY_LIMIT + 1):
             try:
-                return self._fetch_ajax_page(page, page_no)
-            except (PlaywrightTimeoutError, ScraperError) as exc:
+                return self._load_more(page, page_index)
+            except (PlaywrightError, ScraperError) as exc:
                 logger.warning(
-                    "Page %d failed (attempt %d/%d): %s",
-                    page_no,
+                    "Page index %d failed (attempt %d/%d): %s",
+                    page_index,
                     attempt,
                     RETRY_LIMIT,
                     exc,
                 )
 
                 screenshot_path = (
-                    Path(SCREENSHOT_DIR) / f"failed_{page_no:04d}_{attempt}.png"
+                    Path(SCREENSHOT_DIR) / f"failed_{page_index:04d}_{attempt}.png"
                 )
                 try:
                     page.screenshot(path=str(screenshot_path))
@@ -310,10 +390,9 @@ class JDScraper:
                     logger.debug("Could not capture failure screenshot", exc_info=True)
 
                 if attempt < RETRY_LIMIT:
-                    backoff = RETRY_BACKOFF_BASE ** attempt
-                    time.sleep(backoff)
+                    time.sleep(RETRY_BACKOFF_BASE**attempt)
 
-        logger.error("Page %d failed after %d attempts", page_no, RETRY_LIMIT)
+        logger.error("Page index %d failed after %d attempts", page_index, RETRY_LIMIT)
         return None
 
     # ------------------------------------------------------------------
@@ -321,90 +400,77 @@ class JDScraper:
     # ------------------------------------------------------------------
 
     def open_top_page(self) -> tuple[str, int]:
-        """Fetch only the TOP page and return (html, total_pages).
+        """Fetch only the TOP page and return (html, total_hits).
 
-        Cheap relative to a full scrape: it skips every AJAX page, the
-        AI estimator, and the market-price lookups. Used to check
-        whether anything changed before paying for the full run - see
-        :mod:`src.watch`. Must be called before :meth:`scrape_remaining`.
+        Cheap relative to a full scrape: it skips every "Load more"
+        request, the AI estimator, and the market-price lookups. The
+        returned total product count is the change signal used to decide
+        whether the full run is worth doing - see :mod:`src.watch`. Must
+        be called before :meth:`scrape_remaining`.
         """
         if self._context is None:
             raise RuntimeError("JDScraper must be used as a context manager")
 
         self._page = self._context.new_page()
 
-        main_html, total_pages = self._fetch_top_page_with_retry(self._page)
+        html, hits, total_hits, total_pages = self._fetch_top_page_with_retry(self._page)
 
         if self._max_pages is not None:
             total_pages = min(total_pages, self._max_pages)
 
-        self._top_html = main_html
+        self._first_hits = hits
+        self._total_hits = total_hits
         self._total_pages = total_pages
 
-        return main_html, total_pages
+        return html, total_hits
 
     def scrape_remaining(self) -> ScrapeResult:
-        """Fetch every AJAX page after :meth:`open_top_page` was called."""
-        if self._page is None or self._top_html is None:
+        """Load every remaining page after :meth:`open_top_page` was called."""
+        if self._page is None or self._first_hits is None:
             raise RuntimeError("open_top_page() must be called first")
 
         page = self._page
-        main_html = self._top_html
         total_pages = self._total_pages
 
-        html_by_page: dict[int, str] = {}
+        hits_by_page: dict[int, list[dict]] = {0: self._first_hits}
         failed_pages: list[int] = []
 
-        page_numbers = range(2, total_pages + 1)
+        # Algolia pages are zero-based; page 0 came with the TOP page.
+        for page_index in range(1, total_pages):
+            hits = self._load_more_with_retry(page, page_index)
 
-        for page_no in page_numbers:
-            html = self._fetch_ajax_page_with_retry(page, page_no)
-
-            if html is None:
-                failed_pages.append(page_no)
+            if hits is None:
+                failed_pages.append(page_index)
+                # Without a working button no later page can load either.
+                if page.locator(LOAD_MORE_SELECTOR).count() == 0:
+                    failed_pages.extend(range(page_index + 1, total_pages))
+                    break
             else:
-                html_by_page[page_no] = html
+                hits_by_page[page_index] = hits
 
             time.sleep(random.uniform(REQUEST_DELAY_MIN, REQUEST_DELAY_MAX))
 
-        if failed_pages:
-            logger.info("Retrying %d failed page(s): %s", len(failed_pages), failed_pages)
-
-            still_failed: list[int] = []
-
-            for page_no in failed_pages:
-                html = self._fetch_ajax_page_with_retry(page, page_no)
-
-                if html is None:
-                    still_failed.append(page_no)
-                else:
-                    html_by_page[page_no] = html
-
-                time.sleep(random.uniform(REQUEST_DELAY_MIN, REQUEST_DELAY_MAX))
-
-            failed_pages = still_failed
-
         page.close()
 
-        ajax_pages = [html_by_page[n] for n in sorted(html_by_page)]
+        all_hits = [hit for n in sorted(hits_by_page) for hit in hits_by_page[n]]
 
         logger.info(
-            "Scraping finished: main=%s bytes, ajax_pages=%d/%d, failed=%s",
-            f"{len(main_html):,}",
-            len(ajax_pages),
-            total_pages - 1,
+            "Scraping finished: pages=%d/%d, hits=%d, failed=%s",
+            len(hits_by_page),
+            total_pages,
+            len(all_hits),
             failed_pages or "none",
         )
 
         return ScrapeResult(
-            main_html=main_html,
-            ajax_pages=ajax_pages,
+            hits=all_hits,
+            total_hits=self._total_hits,
             total_pages=total_pages,
             failed_pages=failed_pages,
         )
 
     def run(self) -> ScrapeResult:
-        """Run the full scrape: TOP page + every AJAX page."""
+        """Run the full scrape: TOP page + every remaining page."""
         self.open_top_page()
         return self.scrape_remaining()
 
