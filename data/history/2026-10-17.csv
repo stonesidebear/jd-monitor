@@ -1,0 +1,73 @@
+url,name,price,was_price,discount,expected_price,mercari_price,profit,grade,is_new,is_price_down,notified
+https://www.global.jdsports.com/product/grey-adidas-essential-joggers/19701379_jdsportsjx/,adidas Essential Joggers,5000,7000,28.6,3500,0,-1500,D,False,False,False
+https://www.global.jdsports.com/product/black-nike-tech-fleece-full-zip-hoodie/19657894_jdsportsjx/,Nike Tech Fleece Full Zip Hoodie,18000,22000,18.2,4500,0,-13500,D,False,False,False
+https://www.global.jdsports.com/product/grey-nike-aries-hoodie/19582999_jdsportsjx/,Nike Aries Hoodie,7000,13000,46.2,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/black-nike-v5-rnr/19708098_jdsportsjx/,Nike V5 RNR,13000,16000,18.8,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/black-nike-dna-remix-t-shirt/19760072_jdsportsjx/,Nike DNA Remix T-Shirt,3000,5600,46.4,2500,0,-500,D,False,False,False
+https://www.global.jdsports.com/product/black-adidas-originals-regen-puffer-jacket/19753934_jdsportsjx/,adidas Originals Regen Puffer Jacket,17000,22000,22.7,8000,0,-9000,D,False,False,False
+https://www.global.jdsports.com/product/black-reebok-classic-nylon-89/19712004_jdsportsjx/,Reebok Classic Nylon 89,8000,14000,42.9,4500,0,-3500,D,True,False,False
+https://www.global.jdsports.com/product/black-nike-tech-fleece-joggers/19658133_jdsportsjx/,Nike Tech Fleece Joggers,15000,18000,16.7,4500,0,-10500,D,False,False,False
+https://www.global.jdsports.com/product/black-puma-core-sportswear-hoodie/19714769_jdsportsjx/,PUMA Core Sportswear Hoodie,5000,10000,50.0,3500,0,-1500,D,False,False,False
+https://www.global.jdsports.com/product/black-nike-aries-hoodie/19585759_jdsportsjx/,Nike Aries Hoodie,6000,13000,53.8,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/grey-nike-aries-joggers/19583000_jdsportsjx/,Nike Aries Joggers,7000,11000,36.4,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/black-reebok-classic-nylon-89/19766278_jdsportsjx/,Reebok Classic Nylon 89,8000,14000,42.9,4500,0,-3500,D,True,False,False
+https://www.global.jdsports.com/product/grey-the-north-face-surgent-tracksuit/19764913_jdsportsjx/,The North Face Surgent Tracksuit,19000,26000,26.9,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/black-reebok-court-clean/19763044_jdsportsjx/,Reebok Court Clean,6000,9000,33.3,8500,0,2500,D,True,False,False
+https://www.global.jdsports.com/product/blue-boss-hex-t-shirt/19760500_jdsportsjx/,BOSS Hex T-Shirt,7000,13800,49.3,2500,0,-4500,D,False,False,False
+https://www.global.jdsports.com/product/white-new-era-mlb-la-dodgers-9forty-bambi-cap/19760403_jdsportsjx/,New Era MLB LA Dodgers 9FORTY Bambi Cap,3000,5600,46.4,2800,0,-200,D,False,False,False
+https://www.global.jdsports.com/product/brown-fila-valado/19758417_jdsportsjx/,Fila Valado,7000,12000,41.7,3500,0,-3500,D,False,False,False
+https://www.global.jdsports.com/product/grey-nike-dna-remix-t-shirt/19758333_jdsportsjx/,Nike DNA Remix T-Shirt,3000,5600,46.4,2500,0,-500,D,False,False,False
+https://www.global.jdsports.com/product/brown-nike-varsity-t-shirt/19758252_jdsportsjx/,Nike Varsity T-Shirt,4000,6600,39.4,2500,0,-1500,D,False,False,False
+https://www.global.jdsports.com/product/white-reebok-club-c-85/19758226_jdsportsjx/,Reebok Club C 85,11000,15000,26.7,4500,0,-6500,D,True,False,False
+https://www.global.jdsports.com/product/white-reebok-club-c-85/19758225_jdsportsjx/,Reebok Club C 85,11000,15000,26.7,4500,0,-6500,D,True,False,False
+https://www.global.jdsports.com/product/blue-fred-perry-twin-tipped-polo-shirt/19751425_jdsportsjx/,Fred Perry Twin Tipped Polo Shirt,12000,16000,25.0,3500,0,-8500,D,False,False,False
+https://www.global.jdsports.com/product/white-nike-phantom-football/19746886_jdsportsjx/,Nike Phantom Football,2400,4600,47.8,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/white-nike-nike-academy-football/19746881_jdsportsjx/,Nike Nike Academy Football,3000,4600,34.8,3500,0,500,D,False,False,False
+https://www.global.jdsports.com/product/blue-under-armour-challenger-tracksuit/19739795_jdsportsjx/,Under Armour Challenger Tracksuit,9000,14000,35.7,3500,0,-5500,D,False,False,False
+https://www.global.jdsports.com/product/black-puma-darter-tech/19737398_jdsportsjx/,PUMA Darter Tech,8000,12000,33.3,3500,0,-4500,D,False,False,False
+https://www.global.jdsports.com/product/black-reebok-gl8900/19732940_jdsportsjx/,Reebok GL8900,8000,14000,42.9,8000,0,0,D,True,False,False
+https://www.global.jdsports.com/product/green-adidas-world-cup-26-trionda-club-football/19721796_jdsportsjx/,adidas World Cup 26 Trionda Club Football,3000,4600,34.8,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/black-converse-chuck-70-hi/19720213_jdsportsjx/,Converse Chuck 70 Hi,9000,14000,35.7,4500,0,-4500,D,False,False,False
+https://www.global.jdsports.com/product/grey-puma-core-sportswear-hoodie/19713552_jdsportsjx/,PUMA Core Sportswear Hoodie,5000,10000,50.0,3500,0,-1500,D,False,False,False
+https://www.global.jdsports.com/product/blue-puma-core-sportswear-joggers/19712642_jdsportsjx/,PUMA Core Sportswear Joggers,4000,9000,55.6,2800,0,-1200,D,False,False,False
+https://www.global.jdsports.com/product/black-new-balance-1906r/19676575_jdsportsjx/,New Balance 1906R,20000,28000,28.6,8500,0,-11500,D,False,False,False
+https://www.global.jdsports.com/product/white-adidas-originals-samba-xlg/19668810_jdsportsjx/,adidas Originals Samba XLG,14000,20000,30.0,8500,0,-5500,D,False,False,False
+https://www.global.jdsports.com/product/brown-adidas-originals-samba-xlg/19655644_jdsportsjx/,adidas Originals Samba XLG,14000,20000,30.0,8500,0,-5500,D,False,False,False
+https://www.global.jdsports.com/product/white-fila-camalfi/19643312_jdsportsjx/,Fila Camalfi,5000,10000,50.0,4500,0,-500,D,False,False,False
+https://www.global.jdsports.com/product/black-fila-camalfi/19631584_jdsportsjx/,Fila Camalfi,5000,10000,50.0,4500,0,-500,D,False,False,False
+https://www.global.jdsports.com/product/black-under-armour-blitzing-2-cap/19296151_jdsportsjx/,Under Armour Blitzing 2 Cap,3000,4600,34.8,2500,0,-500,D,False,False,False
+https://www.global.jdsports.com/product/green-nike-street-fleece-overhead-hoodie/19765821_jdsportsjx/,Nike Street Fleece Overhead Hoodie,10000,13000,23.1,4500,0,-5500,D,False,False,False
+https://www.global.jdsports.com/product/black-the-north-face-saguru-jacket/19764932_jdsportsjx/,The North Face Saguru Jacket,30000,40000,25.0,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/white-nike-dna-remix-t-shirt/19746363_jdsportsjx/,Nike DNA Remix T-Shirt,3000,5600,46.4,2500,0,-500,D,False,False,False
+https://www.global.jdsports.com/product/red-puma-core-sportswear-joggers/19714052_jdsportsjx/,PUMA Core Sportswear Joggers,3000,9000,66.7,2800,0,-200,D,False,False,False
+https://www.global.jdsports.com/product/black-puma-core-sportswear-joggers/19713579_jdsportsjx/,PUMA Core Sportswear Joggers,4000,9000,55.6,2800,0,-1200,D,False,False,False
+https://www.global.jdsports.com/product/grey-under-armour-ua-rival-woven-track-pants/19677389_jdsportsjx/,Under Armour UA Rival Woven Track Pants,6000,9000,33.3,3500,0,-2500,D,True,False,False
+https://www.global.jdsports.com/product/grey-adidas-originals-campus-00s-beta/19677237_jdsportsjx/,adidas Originals Campus 00s Beta,12000,18000,33.3,8500,0,-3500,D,False,False,False
+https://www.global.jdsports.com/product/black-nike-react-vision/15987781_jdsportsjx/,Nike React Vision,19000,26000,26.9,4500,0,-14500,D,False,False,False
+https://www.global.jdsports.com/product/white-reebok-court-lxs/19766290_jdsportsjx/,Reebok Court LXS,7000,10000,30.0,4500,0,-2500,D,True,False,False
+https://www.global.jdsports.com/product/off-white-reebok-rbk-chill/19764757_jdsportsjx/,Reebok RBK Chill,8000,12000,33.3,3500,0,-4500,D,True,False,False
+https://www.global.jdsports.com/product/black-fila-trexler-n3/19755871_jdsportsjx/,Fila Trexler N3,6000,10000,40.0,4500,0,-1500,D,False,False,False
+https://www.global.jdsports.com/product/white-nike-v5-rnr/19745357_jdsportsjx/,Nike V5 RNR,12000,16000,25.0,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/black-puma-darter-tech/19737138_jdsportsjx/,PUMA Darter Tech,8000,12000,33.3,3500,0,-4500,D,False,False,False
+https://www.global.jdsports.com/product/grey-adidas-originals-campus-00s-beta/19667709_jdsportsjx/,adidas Originals Campus 00s Beta,12000,18000,33.3,8500,0,-3500,D,False,False,False
+https://www.global.jdsports.com/product/black-fila-trexler-n3/19756436_jdsportsjx/,Fila Trexler N3,6000,10000,40.0,4500,0,-1500,D,False,False,False
+https://www.global.jdsports.com/product/blue-nike-academy-t-shirt/19749868_jdsportsjx/,Nike Academy T-Shirt,4000,5000,20.0,1500,0,-2500,D,False,False,False
+https://www.global.jdsports.com/product/green-adidas-originals-munich-93-woven-track-top/19747959_jdsportsjx/,adidas Originals Munich 93 Woven Track Top,9000,14000,35.7,8000,0,-1000,D,False,False,False
+https://www.global.jdsports.com/product/black-nike-downshifter-14/19737773_jdsportsjx/,Nike Downshifter 14,10000,13000,23.1,3500,0,-6500,D,False,False,False
+https://www.global.jdsports.com/product/white-nike-street-t-shirt/19737151_jdsportsjx/,Nike Street T-Shirt,4000,6000,33.3,2500,0,-1500,D,False,False,False
+https://www.global.jdsports.com/product/blue-puma-core-sportswear-hoodie/19715084_jdsportsjx/,PUMA Core Sportswear Hoodie,5000,10000,50.0,3500,0,-1500,D,False,False,False
+https://www.global.jdsports.com/product/grey-puma-core-sportswear-joggers/19714244_jdsportsjx/,PUMA Core Sportswear Joggers,4000,9000,55.6,2800,0,-1200,D,False,False,False
+https://www.global.jdsports.com/product/pink-nike-challenger-7-shorts/19745911_jdsportsjx/,"Nike Challenger 7"" Shorts",4000,7600,47.4,2500,0,-1500,D,False,False,False
+https://www.global.jdsports.com/product/blue-nike-academy-shorts/19755313_jdsportsjx/,Nike Academy Shorts,3000,5000,40.0,1200,0,-1800,D,False,False,False
+https://www.global.jdsports.com/product/white-nike-academy-t-shirt/19749867_jdsportsjx/,Nike Academy T-Shirt,4000,5000,20.0,1500,0,-2500,D,False,False,False
+https://www.global.jdsports.com/product/black-reebok-viva-speed/19749241_jdsportsjx/,Reebok Viva Speed,6000,10000,40.0,3500,0,-2500,D,True,False,False
+https://www.global.jdsports.com/product/black-nike-aries-joggers/19585760_jdsportsjx/,Nike Aries Joggers,5000,11000,54.5,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/black-nike-p-6000/19744663_jdsportsjx/,Nike P-6000,18000,22000,18.2,6500,0,-11500,D,False,False,False
+https://www.global.jdsports.com/product/grey-nike-challenger-20-track-pants/19740314_jdsportsjx/,Nike Challenger 2.0 Track Pants,9000,13000,30.8,3500,0,-5500,D,False,False,False
+https://www.global.jdsports.com/product/black-converse-chuck-taylor-all-star-high-tectuff/19763034_jdsportsjx/,Converse Chuck Taylor All Star High TecTuff,9000,14000,35.7,4500,0,-4500,D,False,False,False
+https://www.global.jdsports.com/product/black-nike-stride-energy-t-shirt/19761663_jdsportsjx/,Nike Stride Energy T-Shirt,8000,13000,38.5,1500,0,-6500,D,False,False,False
+https://www.global.jdsports.com/product/purple-nike-tottenham-hotspur-fc-202627-third-shirt/19761208_jdsportsjx/,Nike Tottenham Hotspur FC 2026/27 Third Shirt,14000,18000,22.2,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/white-adidas-newcastle-united-fc-stadium-track-top/19754073_jdsportsjx/,adidas Newcastle United FC Stadium Track Top,12000,20000,40.0,3500,0,-8500,D,False,False,False
+https://www.global.jdsports.com/product/red-adidas-liverpool-fc-202627-home-shorts/19750906_jdsportsjx/,adidas Liverpool FC 2026/27 Home Shorts,5000,7600,34.2,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/white-fred-perry-fine-stripe-t-shirt/19747028_jdsportsjx/,Fred Perry Fine Stripe T-Shirt,7000,11000,36.4,3500,0,-3500,D,False,False,False
+https://www.global.jdsports.com/product/black-jordan-sixty-plus/19745533_jdsportsjx/,Jordan Sixty Plus,19000,27000,29.6,8000,0,-11000,D,False,False,False
