@@ -1,7 +1,9 @@
 url,name,price,was_price,discount,expected_price,mercari_price,profit,grade,is_new,is_price_down,notified
 https://www.global.jdsports.com/product/red-adidas-liverpool-fc-202526-wirtz-7-home-shirt/19715661_jdsportsjx/,adidas Liverpool FC 2025/26 Wirtz #7 Home Shirt,16000,20000,20.0,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/red-adidas-liverpool-fc-202526-match-home-shirt/19707426_jdsportsjx/,adidas Liverpool FC 2025/26 Match Home Shirt,2000,24000,91.7,4500,0,2500,S,True,False,True
 https://www.global.jdsports.com/product/white-puma-olympique-marseille-king-jacket/19699988_jdsportsjx/,PUMA Olympique Marseille King Jacket,10000,16000,37.5,8000,0,-2000,D,False,False,False
-https://www.global.jdsports.com/product/red-adidas-liverpool-fc-202526-home-shorts/19707422_jdsportsjx/,adidas Liverpool FC 2025/26 Home Shorts,1000,7600,86.8,2500,0,1500,S,False,False,False
+https://www.global.jdsports.com/product/red-adidas-liverpool-fc-202526-long-sleeve-home-shirt/19708684_jdsportsjx/,adidas Liverpool FC 2025/26 Long Sleeve Home Shirt,3000,18000,83.3,8500,0,5500,S,True,False,True
+https://www.global.jdsports.com/product/red-adidas-liverpool-fc-202526-home-shirt/19708683_jdsportsjx/,adidas Liverpool FC 2025/26 Home Shirt,2000,17000,88.2,4500,5404,2500,S,True,False,True
 https://www.global.jdsports.com/product/multi-nike-tottenham-hotspur-fc-202627-away-shirt/19750016_jdsportsjx/,Nike Tottenham Hotspur FC 2026/27 Away Shirt,14000,18000,22.2,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/white-nike-tottenham-hotspur-fc-202627-home-shirt/19750050_jdsportsjx/,Nike Tottenham Hotspur FC 2026/27 Home Shirt,14000,18000,22.2,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/blue-nike-england-2026-strike-shorts/19742797_jdsportsjx/,Nike England 2026 Strike Shorts,5000,8600,41.9,3500,0,-1500,D,False,False,False
@@ -48,10 +50,10 @@ https://www.global.jdsports.com/product/blue-adidas-originals-real-madrid-third-
 https://www.global.jdsports.com/product/red-adidas-originals-liverpool-fc-202627-away-shorts/19759690_jdsportsjx/,adidas Originals Liverpool FC 2026/27 Away Shorts,5000,7600,34.2,2800,0,-2200,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-originals-fc-bayern-munich-202627-away-shirt/19758475_jdsportsjx/,adidas Originals FC Bayern Munich 2026/27 Away Shirt,14000,17000,17.6,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/green-adidas-germany-94-retro-away-shirt/19752896_jdsportsjx/,adidas Germany '94 Retro Away Shirt,10000,18000,44.4,8000,0,-2000,D,False,False,False
-https://www.global.jdsports.com/product/white-adidas-arsenal-202627-home-shorts/19750810_jdsportsjx/,adidas Arsenal 2026/27 Home Shorts,5000,7600,34.2,3500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-manchester-united-fc-202627-home-shorts/19750783_jdsportsjx/,adidas Manchester United FC 2026/27 Home Shorts,5000,7600,34.2,2500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/blue-nike-croatia-2026-away-shirt/19742817_jdsportsjx/,Nike Croatia 2026 Away Shirt,8000,18000,55.6,4500,0,-3500,D,False,False,False
 https://www.global.jdsports.com/product/blue-adidas-originals-arsenal-fc-202627-away-shorts/19758483_jdsportsjx/,adidas Originals Arsenal FC 2026/27 Away Shorts,5000,7600,34.2,2500,0,-2500,D,False,False,False
+https://www.global.jdsports.com/product/white-adidas-arsenal-202627-home-shorts/19750810_jdsportsjx/,adidas Arsenal 2026/27 Home Shorts,5000,7600,34.2,3500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-x-liverpool-fc-9596-away-jersey/19740095_jdsportsjx/,adidas x Liverpool FC 95/96 Away Jersey,10000,18000,44.4,8000,0,-2000,D,False,False,False
 https://www.global.jdsports.com/product/green-adidas-originals-germany-90-retro-away-shirt/19747878_jdsportsjx/,adidas Originals Germany '90 Retro Away Shirt,10000,18000,44.4,8000,0,-2000,D,False,False,False
 https://www.global.jdsports.com/product/white-puma-manchester-city-fc-202627-third-socks/19764682_jdsportsjx/,PUMA Manchester City FC 2026/27 Third Socks,3000,4000,25.0,0,0,0,?,False,False,False
@@ -65,7 +67,7 @@ https://www.global.jdsports.com/product/blue-nike-paris-saint-germain-202627-hom
 https://www.global.jdsports.com/product/red-adidas-wales-2026-home-socks/19724234_jdsportsjx/,adidas Wales 2026 Home Socks,1000,4000,75.0,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/green-adidas-originals-liverpool-fc-202526-third-socks/19714507_jdsportsjx/,adidas Originals Liverpool FC 2025/26 Third Socks,1000,4000,75.0,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/blue-adidas-originals-real-madrid-third-bucket-hat/19713017_jdsportsjx/,adidas Originals Real Madrid Third Bucket Hat,3000,4600,34.8,2500,0,-500,D,False,False,False
-https://www.global.jdsports.com/product/white-score-draw-england-90-world-cup-retro-home-shirt/045477_jdsportsjx/,Score Draw England '90 World Cup Retro Home Shirt,5000,8000,37.5,8000,9556,3000,D,True,False,True
+https://www.global.jdsports.com/product/white-score-draw-england-90-world-cup-retro-home-shirt/045477_jdsportsjx/,Score Draw England '90 World Cup Retro Home Shirt,5000,8000,37.5,8000,0,3000,D,False,False,False
 https://www.global.jdsports.com/product/grey-nike-atletico-madrid-202627-third-shirt/19765180_jdsportsjx/,Nike Atletico Madrid 2026/27 Third Shirt,14000,18000,22.2,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/white-adidas-real-madrid-202627-home-shorts/19753344_jdsportsjx/,adidas Real Madrid 2026/27 Home Shorts,5000,7600,34.2,3500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/blue-puma-manchester-city-fc-202627-home-shorts/19752285_jdsportsjx/,PUMA Manchester City FC 2026/27 Home Shorts,5000,8000,37.5,2500,0,-2500,D,False,False,False
@@ -87,7 +89,7 @@ https://www.global.jdsports.com/product/white-adidas-algeria-2026-home-pre-match
 https://www.global.jdsports.com/product/green-adidas-liverpool-fc-9596-away-track-top/19740094_jdsportsjx/,adidas Liverpool FC 95/96 Away Track Top,12000,18000,33.3,8500,0,-3500,D,False,False,False
 https://www.global.jdsports.com/product/yellow-adidas-sweden-2026-home-shirt/19724206_jdsportsjx/,adidas Sweden 2026 Home Shirt,10000,17000,41.2,3500,0,-6500,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-liverpool-fc-202526-salah-11-home-shirt/19719053_jdsportsjx/,adidas Liverpool FC 2025/26 Salah #11 Home Shirt,16000,20000,20.0,5800,0,-10200,D,False,False,False
-https://www.global.jdsports.com/product/blue-score-draw-manchester-city-fc-92-retro-home-shirt/15965448_jdsportsjx/,Score Draw Manchester City FC '92 Retro Home Shirt,4000,8000,50.0,4500,0,500,D,True,False,True
+https://www.global.jdsports.com/product/blue-score-draw-manchester-city-fc-92-retro-home-shirt/15965448_jdsportsjx/,Score Draw Manchester City FC '92 Retro Home Shirt,4000,8000,50.0,4500,0,500,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-originals-liverpool-fc-202627-away-socks/19759681_jdsportsjx/,adidas Originals Liverpool FC 2026/27 Away Socks,3000,4000,25.0,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/blue-umbro-rangers-fc-202627-away-shorts/19756103_jdsportsjx/,Umbro Rangers FC 2026/27 Away Shorts,6000,8400,28.6,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/red-nike-turkey-2026-home-shirt/19742822_jdsportsjx/,Nike Turkey 2026 Home Shirt,14000,18000,22.2,3500,0,-10500,D,False,False,False
@@ -100,7 +102,7 @@ https://www.global.jdsports.com/product/green-adidas-originals-mexico-86-9-retro
 https://www.global.jdsports.com/product/black-puma-manchester-city-fc-202526-foden-47-away-shirt/19729634_jdsportsjx/,PUMA Manchester City FC 2025/26 Foden #47 Away Shirt,12000,20000,40.0,3500,0,-8500,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-germany-2026-match-home-shirt/19724546_jdsportsjx/,adidas Germany 2026 Match Home Shirt,14000,24000,41.7,3500,0,-10500,D,False,False,False
 https://www.global.jdsports.com/product/blue-adidas-argentina-2026-home-shorts/19724539_jdsportsjx/,adidas Argentina 2026 Home Shorts,5000,7600,34.2,2500,0,-2500,D,False,False,False
-https://www.global.jdsports.com/product/green-puma-manchester-city-fc-202526-fourth-shirt/19718348_jdsportsjx/,PUMA Manchester City FC 2025/26 Fourth Shirt,5000,17000,70.6,3500,0,-1500,D,True,False,True
+https://www.global.jdsports.com/product/green-puma-manchester-city-fc-202526-fourth-shirt/19718348_jdsportsjx/,PUMA Manchester City FC 2025/26 Fourth Shirt,5000,17000,70.6,3500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/blue-hummel-coventry-city-fc-87-retro-home-shirt/19761128_jdsportsjx/,Hummel Coventry City FC '87 Retro Home Shirt,8000,11000,27.3,3500,0,-4500,D,False,False,False
 https://www.global.jdsports.com/product/white-nike-mlb-la-dodgers-ohtani-17-home-jersey/19749870_jdsportsjx/,Nike MLB LA Dodgers Ohtani #17 Home Jersey,22000,28000,21.4,8500,0,-13500,D,False,False,False
 https://www.global.jdsports.com/product/blue-nike-uruguay-2026-away-shirt/19742857_jdsportsjx/,Nike Uruguay 2026 Away Shirt,14000,18000,22.2,0,0,0,?,False,False,False
@@ -142,11 +144,10 @@ https://www.global.jdsports.com/product/blue-adidas-originals-ukraine-2026-away-
 https://www.global.jdsports.com/product/green-adidas-wales-2026-away-shorts/19742070_jdsportsjx/,adidas Wales 2026 Away Shorts,3000,7600,60.5,3500,0,500,D,False,False,False
 https://www.global.jdsports.com/product/red-nike-canada-2026-home-shirt/19742023_jdsportsjx/,Nike Canada 2026 Home Shirt,6000,18000,66.7,3500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/black-adidas-aston-villa-fc-202526-watkins-11-home-shirt/19740655_jdsportsjx/,adidas Aston Villa FC 2025/26 Watkins #11 Home Shirt,8000,20000,60.0,3500,0,-4500,D,False,False,False
+https://www.global.jdsports.com/product/blue-score-draw-scotland-07-home-retro-shirt/19739369_jdsportsjx/,Score Draw Scotland '07 Home Retro Shirt,5000,9000,44.4,8500,0,3500,D,True,False,True
 https://www.global.jdsports.com/product/black-adidas-originals-liverpool-fc-202526-ekitike-22-third-shirt/19733931_jdsportsjx/,adidas Originals Liverpool FC 2025/26 Ekitike #22 Third Shirt,12000,20000,40.0,3500,0,-8500,D,False,False,False
 https://www.global.jdsports.com/product/yellow-adidas-originals-colombia-90-10-retro-home-shirt/19733287_jdsportsjx/,adidas Originals Colombia '90 #10 Retro Home Shirt,14000,18000,22.2,8500,0,-5500,D,False,False,False
-https://www.global.jdsports.com/product/white-adidas-argentina-home-messi-jersey-2006/19733084_jdsportsjx/,adidas Argentina Home Messi Jersey 2006,8000,18000,55.6,15000,0,7000,C,False,False,False
 https://www.global.jdsports.com/product/black-adidas-liverpool-fc-202526-ekitike-22-home-shirt/19732798_jdsportsjx/,adidas Liverpool FC 2025/26 Ekitike #22 Home Shirt,10000,20000,50.0,3500,0,-6500,D,False,False,False
-https://www.global.jdsports.com/product/black-jordan-paris-saint-germain-202526-fourth-shirt/19728273_jdsportsjx/,Jordan Paris Saint Germain 2025/26 Fourth Shirt,4000,17000,76.5,24000,0,20000,S,False,False,False
 https://www.global.jdsports.com/product/white-adidas-algeria-2026-home-shirt/19724178_jdsportsjx/,adidas Algeria 2026 Home Shirt,12000,17000,29.4,3500,0,-8500,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-germany-2026-home-shirt/19723833_jdsportsjx/,adidas Germany 2026 Home Shirt,10000,17000,41.2,8000,0,-2000,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-originals-liverpool-fc-202526-salah-11-third-shirt/19715662_jdsportsjx/,adidas Originals Liverpool FC 2025/26 Salah #11 Third Shirt,8000,20000,60.0,0,0,0,?,False,False,False
@@ -201,6 +202,7 @@ https://www.global.jdsports.com/product/white-adidas-italy-2026-training-shirt/1
 https://www.global.jdsports.com/product/black-adidas-liverpool-fc-training-track-pants/19714509_jdsportsjx/,adidas Liverpool FC Training Track Pants,4000,11000,63.6,3500,0,-500,D,False,False,False
 https://www.global.jdsports.com/product/green-adidas-liverpool-fc-european-training-top/19714508_jdsportsjx/,adidas Liverpool FC European Training Top,10000,13000,23.1,2800,0,-7200,D,False,False,False
 https://www.global.jdsports.com/product/green-adidas-originals-juventus-icons-track-pants/19714495_jdsportsjx/,adidas Originals Juventus Icons Track Pants,10000,17000,41.2,8000,0,-2000,D,False,False,False
+https://www.global.jdsports.com/product/black-adidas-originals-liverpool-fc-icon-track-pants/19714490_jdsportsjx/,adidas Originals Liverpool FC Icon Track Pants,1000,17000,94.1,3500,0,2500,S,True,False,True
 https://www.global.jdsports.com/product/black-sudu-wolverhampton-wanderers-fc-2526-goalkeeper-shirt/19700842_jdsportsjx/,SUDU Wolverhampton Wanderers FC 25/26 Goalkeeper Shirt,6000,12000,50.0,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/grey-adidas-real-madrid-training-track-top/19697287_jdsportsjx/,adidas Real Madrid Training Track Top,7000,13000,46.2,3500,0,-3500,D,False,False,False
 https://www.global.jdsports.com/product/white-nike-nba-chicago-bulls-lavine-8-swingman-jersey/16618394_jdsportsjx/,Nike NBA Chicago Bulls Lavine #8 Swingman Jersey,4000,19000,78.9,3500,0,-500,S,False,False,False
