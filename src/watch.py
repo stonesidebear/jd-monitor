@@ -49,3 +49,17 @@ def save_page_count(total_hits: int, path: str = WATCH_PAGE_COUNT_PATH) -> None:
     file_path = Path(path)
     file_path.parent.mkdir(parents=True, exist_ok=True)
     file_path.write_text(str(total_hits), encoding="utf-8")
+
+
+def is_large_change(previous: int | None, current: int, min_change: int) -> bool:
+    """True if the catalog size moved by at least ``min_change`` products.
+
+    Counts the net change in either direction. ``previous`` being None
+    (no saved value, e.g. the very first run) is reported as not large:
+    there is nothing to compare against, so it is not a "100+ updates in
+    one go" signal.
+    """
+    if previous is None:
+        return False
+
+    return abs(current - previous) >= min_change

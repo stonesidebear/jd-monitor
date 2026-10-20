@@ -10,7 +10,7 @@ from __future__ import annotations
 import argparse
 import logging
 
-from config import URL
+from config import UPDATE_ALERT_MIN_CHANGE, URL
 from src.diff import adopt_legacy_urls, already_notified_urls, apply_diff
 from src.logging_config import setup_logging
 from src.mailer import send_notification_email, send_update_detected_email
@@ -20,7 +20,7 @@ from src.parser import parse
 from src.profit import calculate_all
 from src.scraper import JDScraper
 from src.storage import load_products, save_history, save_products
-from src.watch import load_page_count, save_page_count
+from src.watch import is_large_change, load_page_count, save_page_count
 
 logger = logging.getLogger(__name__)
 
@@ -79,8 +79,17 @@ def main() -> None:
                 previous_hits,
                 total_hits,
             )
-            if not args.skip_email:
-                send_update_detected_email(URL, previous_hits, total_hits)
+            # 早期警告メールは大きな変化(UPDATE_ALERT_MIN_CHANGE件以上)の
+            # 時だけ。小さな更新のたびに送ると煩わしいため。注目商品の
+            # 通知は、この判定に関係なく後段で従来通り送る。
+            if is_large_change(previous_hits, total_hits, UPDATE_ALERT_MIN_CHANGE):
+                if not args.skip_email:
+                    send_update_detected_email(URL, previous_hits, total_hits)
+            else:
+                logger.info(
+                    "Change is below %d products - not sending the update-detected email.",
+                    UPDATE_ALERT_MIN_CHANGE,
+                )
         else:
             logger.info("--force given with no catalog-size change, running full scrape anyway.")
 
