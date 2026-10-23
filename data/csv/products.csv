@@ -2,12 +2,12 @@ url,name,price,was_price,discount,expected_price,mercari_price,profit,grade,is_n
 https://www.global.jdsports.com/product/black-nike-club-fleece-colour-block-joggers/19713974_jdsportsjx/,Nike Club Fleece Colour Block Joggers,9000,11000,18.2,3500,0,-5500,D,False,False,False
 https://www.global.jdsports.com/product/black-nike-club-fleece-colour-block-hoodie/19713973_jdsportsjx/,Nike Club Fleece Colour Block Hoodie,10000,13000,23.1,3500,0,-6500,D,False,False,False
 https://www.global.jdsports.com/product/grey-adidas-essential-joggers/19701379_jdsportsjx/,adidas Essential Joggers,5000,7000,28.6,3500,0,-1500,D,False,False,False
+https://www.global.jdsports.com/product/black-nike-v5-rnr/19708098_jdsportsjx/,Nike V5 RNR,13000,16000,18.8,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/grey-nike-aries-hoodie/19582999_jdsportsjx/,Nike Aries Hoodie,7000,13000,46.2,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/black-nike-dna-remix-t-shirt/19760072_jdsportsjx/,Nike DNA Remix T-Shirt,3000,5600,46.4,2500,0,-500,D,False,False,False
 https://www.global.jdsports.com/product/black-reebok-classic-nylon-89/19712004_jdsportsjx/,Reebok Classic Nylon 89,8000,14000,42.9,4500,0,-3500,D,False,False,False
 https://www.global.jdsports.com/product/black-nike-aries-hoodie/19585759_jdsportsjx/,Nike Aries Hoodie,6000,13000,53.8,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/black-fila-trexler-n3/19756436_jdsportsjx/,Fila Trexler N3,6000,10000,40.0,4500,0,-1500,D,False,False,False
-https://www.global.jdsports.com/product/black-nike-v5-rnr/19708098_jdsportsjx/,Nike V5 RNR,13000,16000,18.8,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/grey-nike-aries-joggers/19583000_jdsportsjx/,Nike Aries Joggers,7000,11000,36.4,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/black-reebok-classic-nylon-89/19766278_jdsportsjx/,Reebok Classic Nylon 89,8000,14000,42.9,4500,0,-3500,D,False,False,False
 https://www.global.jdsports.com/product/grey-the-north-face-surgent-tracksuit/19764913_jdsportsjx/,The North Face Surgent Tracksuit,19000,26000,26.9,0,0,0,?,False,False,False
@@ -267,7 +267,6 @@ https://www.global.jdsports.com/product/white-adidas-real-madrid-dna-t-shirt/197
 https://www.global.jdsports.com/product/blue-adidas-real-madrid-dna-t-shirt/19752162_jdsportsjx/,adidas Real Madrid DNA T-Shirt,4000,5600,28.6,2800,0,-1200,D,False,False,False
 https://www.global.jdsports.com/product/blue-fred-perry-fine-stripe-t-shirt/19751463_jdsportsjx/,Fred Perry Fine Stripe T-Shirt,5000,11000,54.5,3500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/red-adidas-manchester-united-fc-dna-t-shirt/19750793_jdsportsjx/,adidas Manchester United FC DNA T-Shirt,4000,5600,28.6,2500,0,-1500,D,False,False,False
-https://www.global.jdsports.com/product/blue-boss-core-t-shirt/19744803_jdsportsjx/,BOSS Core T-Shirt,5000,11800,57.6,2500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/blue-nike-miler-vest/19744271_jdsportsjx/,Nike Miler Vest,2000,5600,64.3,4000,0,2000,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-x-liverpool-fc-9596-away-jersey/19740095_jdsportsjx/,adidas x Liverpool FC 95/96 Away Jersey,10000,18000,44.4,8000,0,-2000,D,False,False,False
 https://www.global.jdsports.com/product/blue-adidas-originals-newcastle-united-fc-og-crew-sweatshirt/19737492_jdsportsjx/,adidas Originals Newcastle United FC OG Crew Sweatshirt,8000,14000,42.9,3500,0,-4500,D,False,False,False
@@ -499,6 +498,7 @@ https://www.global.jdsports.com/product/white-fred-perry-twin-tipped-polo-shirt/
 https://www.global.jdsports.com/product/blue-fred-perry-waffle-t-shirt/19749210_jdsportsjx/,Fred Perry Waffle T-Shirt,8000,11000,27.3,3500,0,-4500,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-sl-benfica-dna-t-shirt/19748810_jdsportsjx/,adidas SL Benfica DNA T-Shirt,4000,5600,28.6,2500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/green-under-armour-tech-hybrid-track-pants/19745930_jdsportsjx/,Under Armour Tech Hybrid Track Pants,6000,14000,57.1,3500,0,-2500,D,False,False,False
+https://www.global.jdsports.com/product/blue-boss-core-t-shirt/19744803_jdsportsjx/,BOSS Core T-Shirt,5000,11800,57.6,2500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/blue-nike-uruguay-2026-home-shirt/19742856_jdsportsjx/,Nike Uruguay 2026 Home Shirt,10000,18000,44.4,4500,0,-5500,D,False,False,False
 https://www.global.jdsports.com/product/orange-puma-ivory-coast-2026-home-shirt/19742763_jdsportsjx/,PUMA Ivory Coast 2026 Home Shirt,12000,17000,29.4,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/white-adidas-wales-2026-away-socks/19742072_jdsportsjx/,adidas Wales 2026 Away Socks,1000,4000,75.0,0,0,0,?,False,False,True
@@ -580,6 +580,7 @@ https://www.global.jdsports.com/product/red-adidas-liverpool-fc-202526-wirtz-7-h
 https://www.global.jdsports.com/product/black-adidas-adilette-aqua-slides-womens/1231568_jdsportsjx/,adidas Adilette Aqua Slides Women's,2000,4000,50.0,3500,0,1500,D,False,False,False
 https://www.global.jdsports.com/product/grey-nike-varsity-shorts/19765874_jdsportsjx/,Nike Varsity Shorts,4000,9000,55.6,2500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/white-fila-corda/19764725_jdsportsjx/,Fila Corda,8000,13000,38.5,3500,0,-4500,D,False,False,False
+https://www.global.jdsports.com/product/blue-adidas-originals-munich-93-crew-sweatshirt/19763208_jdsportsjx/,adidas Originals Munich 93 Crew Sweatshirt,6000,12000,50.0,3500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/black-nike-air-max-t-shirt/19761662_jdsportsjx/,Nike Air Max T-Shirt,5000,7000,28.6,1800,0,-3200,D,False,False,False
 https://www.global.jdsports.com/product/beige-under-armour-heatgear-camo-shorts/19761269_jdsportsjx/,Under Armour HeatGear Camo Shorts,3000,6400,53.1,3500,0,500,D,False,False,False
 https://www.global.jdsports.com/product/red-nike-varsity-joggers/19760744_jdsportsjx/,Nike Varsity Joggers,7000,10000,30.0,2500,0,-4500,D,False,False,False
@@ -687,7 +688,6 @@ https://www.global.jdsports.com/product/red-nike-sportswear-club-t-shirt/1249170
 https://www.global.jdsports.com/product/red-nike-varsity-hoodie/19765875_jdsportsjx/,Nike Varsity Hoodie,9000,12000,25.0,3500,0,-5500,D,False,False,False
 https://www.global.jdsports.com/product/brown-adidas-originals-sst-track-pants/19765815_jdsportsjx/,adidas Originals SST Track Pants,7000,11000,36.4,4500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/blue-lacoste-colour-block-tracksuit/19764622_jdsportsjx/,Lacoste Colour Block Tracksuit,32000,44000,27.3,3500,0,-28500,D,False,False,False
-https://www.global.jdsports.com/product/blue-adidas-originals-munich-93-crew-sweatshirt/19763208_jdsportsjx/,adidas Originals Munich 93 Crew Sweatshirt,6000,12000,50.0,3500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/blue-boss-salbo-sweatshirt/19763193_jdsportsjx/,BOSS Salbo Sweatshirt,20000,27800,28.1,3500,0,-16500,D,False,False,False
 https://www.global.jdsports.com/product/green-nike-air-max-fleece-track-pants/19761660_jdsportsjx/,Nike Air Max Fleece Track Pants,10000,15000,33.3,3500,0,-6500,D,False,False,False
 https://www.global.jdsports.com/product/grey-nike-air-max-fleece-overhead-hoodie/19761657_jdsportsjx/,Nike Air Max Fleece Overhead Hoodie,10000,15000,33.3,4500,0,-5500,D,False,False,False
@@ -745,6 +745,7 @@ https://www.global.jdsports.com/product/white-nike-mlb-la-dodgers-ohtani-17-home
 https://www.global.jdsports.com/product/red-jordan-globe-shorts/19749476_jdsportsjx/,Jordan Globe Shorts,6000,10000,40.0,2500,0,-3500,D,False,False,False
 https://www.global.jdsports.com/product/white-fila-valado-adv-2/19746989_jdsportsjx/,Fila Valado ADV 2,7000,12000,41.7,4500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/green-adidas-originals-stripe-t-shirt/19746326_jdsportsjx/,adidas Originals Stripe T-Shirt,2000,7000,71.4,1500,0,-500,D,False,False,False
+https://www.global.jdsports.com/product/white-nike-air-t-shirt/19746314_jdsportsjx/,Nike Air T-Shirt,3000,5600,46.4,2000,0,-1000,D,False,False,False
 https://www.global.jdsports.com/product/white-jordan-globe-dual-t-shirt/19745999_jdsportsjx/,Jordan Globe Dual T-Shirt,4000,7600,47.4,2500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/pink-lacoste-core-t-shirt/19745912_jdsportsjx/,Lacoste Core T-Shirt,5000,9000,44.4,1500,0,-3500,D,False,False,False
 https://www.global.jdsports.com/product/blue-fred-perry-original-stack-12-zip-sweatshirt/19745837_jdsportsjx/,Fred Perry Original Stack 1/2 Zip Sweatshirt,10000,19000,47.4,3500,0,-6500,D,False,False,False
@@ -800,6 +801,7 @@ https://www.global.jdsports.com/product/black-nike-air-max-95-graphic-t-shirt/19
 https://www.global.jdsports.com/product/grey-nike-element-full-zip-jacket/19736082_jdsportsjx/,Nike Element Full Zip Jacket,10000,20000,50.0,3500,0,-6500,D,False,False,False
 https://www.global.jdsports.com/product/white-nike-air-max-tape-t-shirt/19735225_jdsportsjx/,Nike Air Max Tape T-Shirt,4000,7600,47.4,2500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/black-jordan-star-t-shirt/19735224_jdsportsjx/,Jordan Star T-Shirt,5000,7600,34.2,2500,0,-2500,D,False,False,False
+https://www.global.jdsports.com/product/white-nike-air-max-95-graphic-t-shirt/19735114_jdsportsjx/,Nike Air Max 95 Graphic T-Shirt,3000,7000,57.1,2500,0,-500,D,False,False,False
 https://www.global.jdsports.com/product/blue-nike-air-max-poly-track-pants/19735046_jdsportsjx/,Nike Air Max Poly Track Pants,8000,15000,46.7,3500,0,-4500,D,False,False,False
 https://www.global.jdsports.com/product/blue-nike-air-max-poly-full-zip-hoodie/19734843_jdsportsjx/,Nike Air Max Poly Full Zip Hoodie,8000,17000,52.9,3500,0,-4500,D,False,False,False
 https://www.global.jdsports.com/product/black-fred-perry-twin-tipped-t-shirt/19734511_jdsportsjx/,Fred Perry Twin Tipped T-Shirt,6000,10000,40.0,2500,0,-3500,D,False,False,False
@@ -847,12 +849,12 @@ https://www.global.jdsports.com/product/orange-under-armour-tech-embossed-shorts
 https://www.global.jdsports.com/product/white-reebok-court-clean/19745845_jdsportsjx/,Reebok Court Clean,5000,12000,58.3,8500,0,3500,D,False,False,False
 https://www.global.jdsports.com/product/blue-under-armour-vanish-wordmark-track-pants/19745714_jdsportsjx/,Under Armour Vanish Wordmark Track Pants,9000,15000,40.0,3500,0,-5500,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-originals-handball-spezial-leather/19745126_jdsportsjx/,adidas Originals Handball Spezial Leather,14000,18000,22.2,8500,0,-5500,D,False,False,False
-https://www.global.jdsports.com/product/white-reebok-court-retro/19744805_jdsportsjx/,Reebok Court Retro,4000,12000,66.7,3500,0,-500,D,False,False,False
 https://www.global.jdsports.com/product/white-nike-air-max-moto-2k/19744779_jdsportsjx/,Nike Air Max Moto 2K,15000,24000,37.5,3500,0,-11500,D,False,False,False
 https://www.global.jdsports.com/product/black-adidas-originals-handball-spezial/19744622_jdsportsjx/,adidas Originals Handball Spezial,12000,18000,33.3,8500,0,-3500,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-originals-real-madrid-og-t-shirt/19744484_jdsportsjx/,adidas Originals Real Madrid OG T-Shirt,6000,8000,25.0,3500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/brown-asics-gel-nyc-20/19744452_jdsportsjx/,ASICS GEL-NYC 2.0,18000,31000,41.9,8500,0,-9500,D,False,False,False
 https://www.global.jdsports.com/product/white-reebok-npc-ii/19744383_jdsportsjx/,Reebok NPC II,6000,14000,57.1,8000,0,2000,D,False,False,False
+https://www.global.jdsports.com/product/grey-lacoste-croc-wrap-swim-shorts/19744305_jdsportsjx/,Lacoste Croc Wrap Swim Shorts,5000,12000,58.3,4500,0,-500,D,True,False,False
 https://www.global.jdsports.com/product/black-champion-state-of-play-long-sleeve-polo-shirt/19743884_jdsportsjx/,Champion State Of Play Long Sleeve Polo Shirt,5000,10400,51.9,2800,0,-2200,D,False,False,False
 https://www.global.jdsports.com/product/red-nike-korea-2026-home-shirt/19742846_jdsportsjx/,Nike Korea 2026 Home Shirt,10000,18000,44.4,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/blue-nike-england-2026-strike-shirt/19742793_jdsportsjx/,Nike England 2026 Strike Shirt,7000,10000,30.0,0,0,0,?,False,False,False
@@ -979,7 +981,6 @@ https://www.global.jdsports.com/product/green-fred-perry-tape-t-shirt/19746980_j
 https://www.global.jdsports.com/product/grey-nike-air-t-shirt/19746438_jdsportsjx/,Nike Air T-Shirt,2000,5600,64.3,2000,0,0,D,False,False,False
 https://www.global.jdsports.com/product/orange-under-armour-velociti-pro-jacket/19746344_jdsportsjx/,Under Armour Velociti Pro Jacket,9000,18000,50.0,3500,0,-5500,D,False,False,False
 https://www.global.jdsports.com/product/blue-columbia-titanium-pro-shell-jacket/19746342_jdsportsjx/,Columbia Titanium Pro Shell Jacket,20000,54000,63.0,8000,0,-12000,D,False,False,False
-https://www.global.jdsports.com/product/white-nike-air-t-shirt/19746314_jdsportsjx/,Nike Air T-Shirt,3000,5600,46.4,2000,0,-1000,D,False,False,False
 https://www.global.jdsports.com/product/orange-lacoste-wordmark-t-shirt/19746239_jdsportsjx/,Lacoste Wordmark T-Shirt,6000,14000,57.1,1200,0,-4800,D,False,False,False
 https://www.global.jdsports.com/product/blue-under-armour-heatgear-short-sleeve-compression-t-shirt/19746224_jdsportsjx/,Under Armour HeatGear Short Sleeve Compression T-Shirt,3000,6400,53.1,1500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/black-nike-247-8-shorts/19745995_jdsportsjx/,"Nike 24.7 8"" Shorts",8000,16000,50.0,2800,0,-5200,D,False,False,False
@@ -994,10 +995,12 @@ https://www.global.jdsports.com/product/multicolor-adidas-originals-manchester-u
 https://www.global.jdsports.com/product/red-jordan-hydro-vi-retro-slides/19745239_jdsportsjx/,Jordan Hydro VI Retro Slides,7000,11000,36.4,8000,0,1000,D,False,False,False
 https://www.global.jdsports.com/product/grey-asics-core-track-pants/19745094_jdsportsjx/,ASICS Core Track Pants,6000,10800,44.4,3500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/blue-nike-tech-fleece-joggers/19745079_jdsportsjx/,Nike Tech Fleece Joggers,8000,18000,55.6,4500,0,-3500,D,False,False,False
+https://www.global.jdsports.com/product/black-the-north-face-location-t-shirt/19745004_jdsportsjx/,The North Face Location T-Shirt,2000,6000,66.7,2500,0,500,D,True,False,False
 https://www.global.jdsports.com/product/beige-the-north-face-location-t-shirt/19745003_jdsportsjx/,The North Face Location T-Shirt,2000,6000,66.7,2500,0,500,D,False,False,False
 https://www.global.jdsports.com/product/black-nike-palm-t-shirt/19744923_jdsportsjx/,Nike Palm T-Shirt,3000,6000,50.0,2500,0,-500,D,False,False,False
 https://www.global.jdsports.com/product/purple-nike-pro-t-shirt/19744885_jdsportsjx/,Nike Pro T-Shirt,5000,7600,34.2,1500,0,-3500,D,False,False,False
 https://www.global.jdsports.com/product/blue-under-armour-tech-reflective-t-shirt/19744814_jdsportsjx/,Under Armour Tech Reflective T-Shirt,2000,6400,68.8,1500,0,-500,D,False,False,False
+https://www.global.jdsports.com/product/white-reebok-court-retro/19744805_jdsportsjx/,Reebok Court Retro,4000,12000,66.7,3500,0,-500,D,False,False,False
 https://www.global.jdsports.com/product/grey-berghaus-motion-shorts/19744690_jdsportsjx/,Berghaus Motion Shorts,4000,9000,55.6,3500,0,-500,D,False,False,False
 https://www.global.jdsports.com/product/grey-the-north-face-mountain-athletics-fleece-track-pants/19744683_jdsportsjx/,The North Face Mountain Athletics Fleece Track Pants,8000,16000,50.0,8500,0,500,D,False,False,False
 https://www.global.jdsports.com/product/blue-adidas-originals-gazelle-og/19744382_jdsportsjx/,adidas Originals Gazelle OG,12000,18000,33.3,6500,0,-5500,D,False,False,False
@@ -1069,6 +1072,7 @@ https://www.global.jdsports.com/product/grey-new-balance-trackside-piping-shorts
 https://www.global.jdsports.com/product/white-puma-sportswear-t-shirt/19740250_jdsportsjx/,PUMA Sportswear T-Shirt,1600,4000,60.0,2500,0,900,D,False,False,False
 https://www.global.jdsports.com/product/black-adidas-originals-celtic-fc-irish-origins-track-top/19740081_jdsportsjx/,adidas Originals Celtic FC Irish Origins Track Top,6000,17000,64.7,3500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-originals-munchen-leather/19739931_jdsportsjx/,adidas Originals Munchen Leather,12000,18000,33.3,6500,0,-5500,D,False,False,False
+https://www.global.jdsports.com/product/grey-nike-tech-mix-full-zip/19739563_jdsportsjx/,Nike TECH MIX FULL ZIP,10000,23000,56.5,8500,0,-1500,D,True,False,False
 https://www.global.jdsports.com/product/black-puma-mclaren-racing-f1-logo-t-shirt/19738542_jdsportsjx/,PUMA McLAREN RACING F1 Logo T-Shirt,5000,7000,28.6,3500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/grey-fila-trexler-5/19738530_jdsportsjx/,Fila Trexler 5,4000,9000,55.6,3500,0,-500,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-originals-varsity-graphic-t-shirt/19738361_jdsportsjx/,adidas Originals Varsity Graphic T-Shirt,5000,7000,28.6,2500,0,-2500,D,False,False,False
@@ -1098,7 +1102,6 @@ https://www.global.jdsports.com/product/black-under-armour-challenger-training-s
 https://www.global.jdsports.com/product/brown-the-north-face-tek-track-pants/19735840_jdsportsjx/,The North Face Tek Track Pants,9000,15000,40.0,3500,0,-5500,D,False,False,False
 https://www.global.jdsports.com/product/grey-nike-world-tour-t-shirt/19735797_jdsportsjx/,Nike World Tour T-Shirt,3000,6600,54.5,1200,0,-1800,D,False,False,False
 https://www.global.jdsports.com/product/grey-nike-festival-challenger-shorts/19735210_jdsportsjx/,Nike Festival Challenger Shorts,4000,8000,50.0,2500,0,-1500,D,False,False,False
-https://www.global.jdsports.com/product/white-nike-air-max-95-graphic-t-shirt/19735114_jdsportsjx/,Nike Air Max 95 Graphic T-Shirt,3000,7000,57.1,2500,0,-500,D,False,False,False
 https://www.global.jdsports.com/product/black-nike-academy-shorts/19735081_jdsportsjx/,Nike Academy Shorts,3000,5000,40.0,1200,0,-1800,D,False,False,False
 https://www.global.jdsports.com/product/black-nike-air-max-tape-t-shirt/19735045_jdsportsjx/,Nike Air Max Tape T-Shirt,4000,7600,47.4,2500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/multicolor-adidas-originals-x-manchester-united-x-the-stone-roses-shirt/19734958_jdsportsjx/,adidas Originals x Manchester United x The Stone Roses Shirt,12000,18000,33.3,12000,0,0,D,False,False,False
