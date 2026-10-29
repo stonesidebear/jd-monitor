@@ -183,7 +183,7 @@ https://www.global.jdsports.com/product/black-nike-mens-dri-fit/19717174_jdsport
 https://www.global.jdsports.com/product/blue-adidas-originals-real-madrid-third-scarf/19712192_jdsportsjx/,adidas Originals Real Madrid Third Scarf,3000,4600,34.8,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/white-nike-club-structured-metal-swoosh-cap/19667198_jdsportsjx/,Nike Club Structured Metal Swoosh Cap,3000,4600,34.8,2800,0,-200,D,False,False,False
 https://www.global.jdsports.com/product/black-jordan-airborne-crossbody-bag/16485178_jdsportsjx/,Jordan Airborne Crossbody Bag,2400,3600,33.3,2800,0,400,D,False,False,False
-https://www.global.jdsports.com/product/beige-the-north-face-saguru-jacket/19765243_jdsportsjx/,The North Face Saguru Jacket,30000,40000,25.0,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/brown-the-north-face-saguru-jacket/19765243_jdsportsjx/,The North Face Saguru Jacket,30000,40000,25.0,0,0,0,?,True,False,False
 https://www.global.jdsports.com/product/blue-adidas-tiro-26-essentials-shirt/19764750_jdsportsjx/,adidas Tiro 26 Essentials Shirt,3000,4000,25.0,2800,0,-200,D,False,False,False
 https://www.global.jdsports.com/product/black-the-north-face-mountain-athletics-ply-14-zip/19763330_jdsportsjx/,The North Face Mountain Athletics Ply 1/4 Zip,11000,16000,31.2,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/green-adidas-originals-munich-93-t-shirt/19760520_jdsportsjx/,adidas Originals Munich 93 T-Shirt,4000,6600,39.4,2500,0,-1500,D,False,False,False
@@ -253,7 +253,6 @@ https://www.global.jdsports.com/product/blue-boss-ribbed-shorts/19730211_jdsport
 https://www.global.jdsports.com/product/black-adidas-originals-samba-xlg/19649025_jdsportsjx/,adidas Originals Samba XLG,14000,20000,30.0,8500,0,-5500,D,False,False,False
 https://www.global.jdsports.com/product/white-jordan-2-pack-flight-tank-tops/19625712_jdsportsjx/,Jordan 2 Pack Flight Tank Tops,3600,5600,35.7,24000,0,20400,S,False,False,True
 https://www.global.jdsports.com/product/blue-the-north-face-trishull-full-zip-jacket/19763327_jdsportsjx/,The North Face Trishull Full Zip Jacket,16000,22000,27.3,8500,0,-7500,D,False,False,False
-https://www.global.jdsports.com/product/red-nike-varsity-joggers/19760744_jdsportsjx/,Nike Varsity Joggers,7000,10000,30.0,2500,0,-4500,D,False,False,False
 https://www.global.jdsports.com/product/blue-the-north-face-vent-jacket/19760067_jdsportsjx/,The North Face Vent Jacket,10000,20000,50.0,5000,0,-5000,D,False,False,False
 https://www.global.jdsports.com/product/green-adidas-originals-90s-jersey/19758218_jdsportsjx/,adidas Originals '90s Jersey,6000,8000,25.0,3500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/brown-nike-foundation-hoodie/19757126_jdsportsjx/,Nike Foundation Hoodie,8000,11000,27.3,3500,0,-4500,D,False,False,False
@@ -296,6 +295,7 @@ https://www.global.jdsports.com/product/black-under-armour-heatgear-compression-
 https://www.global.jdsports.com/product/blue-adidas-originals-munich-93-woven-track-top/19765847_jdsportsjx/,adidas Originals Munich 93 Woven Track Top,9000,14000,35.7,8000,0,-1000,D,False,False,False
 https://www.global.jdsports.com/product/black-nike-storm-fit-adv-jacket/19763033_jdsportsjx/,Nike Storm-FIT ADV Jacket,15000,22000,31.8,8500,0,-6500,D,False,False,False
 https://www.global.jdsports.com/product/green-nike-air-max-t-shirt/19761661_jdsportsjx/,Nike Air Max T-Shirt,4000,7000,42.9,1800,0,-2200,D,False,False,False
+https://www.global.jdsports.com/product/red-nike-varsity-joggers/19760744_jdsportsjx/,Nike Varsity Joggers,7000,10000,30.0,2500,0,-4500,D,False,False,False
 https://www.global.jdsports.com/product/green-berghaus-logo-t-shirt/19760738_jdsportsjx/,Berghaus Logo T-Shirt,4000,6000,33.3,2000,0,-2000,D,False,False,False
 https://www.global.jdsports.com/product/blue-asics-core-jacket/19760703_jdsportsjx/,ASICS CORE JACKET,8000,14000,42.9,3500,0,-4500,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-originals-stripe-t-shirt/19759774_jdsportsjx/,adidas Originals Stripe T-Shirt,5000,7000,28.6,1500,0,-3500,D,False,False,False
@@ -415,7 +415,6 @@ https://www.global.jdsports.com/product/purple-adidas-uefa-champions-league-2025
 https://www.global.jdsports.com/product/blue-new-era-mlb-new-york-yankees-graffiti-trucker-cap/19734508_jdsportsjx/,New Era MLB New York Yankees Graffiti Trucker Cap,5000,6600,24.2,2500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/green-boss-large-logo-t-shirt/19734501_jdsportsjx/,BOSS Large Logo T-Shirt,4000,13000,69.2,2500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/black-ea7-t-shirt/19730758_jdsportsjx/,EA7 T-Shirt,5000,11000,54.5,3500,0,-1500,D,False,False,False
-https://www.global.jdsports.com/product/black-adidas-originals-nylon-trefoil-tote-bag/19725354_jdsportsjx/,adidas Originals Nylon Trefoil Tote Bag,4000,6000,33.3,3500,0,-500,D,False,False,False
 https://www.global.jdsports.com/product/red-adidas-wales-2026-home-socks/19724234_jdsportsjx/,adidas Wales 2026 Home Socks,1000,4000,75.0,0,0,0,?,False,False,True
 https://www.global.jdsports.com/product/pink-adidas-world-cup-26-trionda-club-football/19721800_jdsportsjx/,adidas World Cup 26 Trionda Club Football,3000,4600,34.8,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/black-under-armour-essential-ripstop-bag-20/19720243_jdsportsjx/,Under Armour Essential Ripstop Bag 2.0,4000,5400,25.9,3500,0,-500,D,False,False,False
