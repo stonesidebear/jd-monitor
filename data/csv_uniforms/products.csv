@@ -1,7 +1,7 @@
 url,name,price,was_price,discount,expected_price,mercari_price,profit,grade,is_new,is_price_down,notified
 https://www.global.jdsports.com/product/red-adidas-liverpool-fc-202526-wirtz-7-home-shirt/19715661_jdsportsjx/,adidas Liverpool FC 2025/26 Wirtz #7 Home Shirt,16000,20000,20.0,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/white-puma-olympique-marseille-king-jacket/19699988_jdsportsjx/,PUMA Olympique Marseille King Jacket,10000,16000,37.5,8000,0,-2000,D,False,False,False
-https://www.global.jdsports.com/product/black-adidas-liverpool-fc-tiro-25-training-shorts/19707412_jdsportsjx/,adidas Liverpool FC Tiro 25 Training Shorts,4000,7600,47.4,3500,0,-500,D,True,False,True
+https://www.global.jdsports.com/product/black-adidas-liverpool-fc-tiro-25-training-shorts/19707412_jdsportsjx/,adidas Liverpool FC Tiro 25 Training Shorts,4000,7600,47.4,3500,0,-500,D,False,False,False
 https://www.global.jdsports.com/product/white-nike-tottenham-hotspur-fc-202627-home-shirt/19750050_jdsportsjx/,Nike Tottenham Hotspur FC 2026/27 Home Shirt,14000,18000,22.2,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/multi-nike-tottenham-hotspur-fc-202627-away-shirt/19750016_jdsportsjx/,Nike Tottenham Hotspur FC 2026/27 Away Shirt,14000,18000,22.2,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/blue-nike-england-2026-strike-shorts/19742797_jdsportsjx/,Nike England 2026 Strike Shorts,5000,8600,41.9,3500,0,-1500,D,False,False,False
@@ -9,13 +9,13 @@ https://www.global.jdsports.com/product/blue-nike-tottenham-hotspur-fc-202627-ho
 https://www.global.jdsports.com/product/blue-nike-tottenham-hotspur-fc-202627-away-shorts/19755532_jdsportsjx/,Nike Tottenham Hotspur FC 2026/27 Away Shorts,7000,10000,30.0,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/black-nike-netherlands-2026-strike-shorts/19742841_jdsportsjx/,Nike Netherlands 2026 Strike Shorts,5000,8600,41.9,2000,0,-3000,D,False,False,False
 https://www.global.jdsports.com/product/blue-nike-england-2026-goalkeeper-shirt/19742805_jdsportsjx/,Nike England 2026 Goalkeeper Shirt,14000,18000,22.2,0,0,0,?,False,False,False
-https://www.global.jdsports.com/product/yellow-adidas-jamaica-2026-pre-match-home-shirt/19736993_jdsportsjx/,adidas Jamaica 2026 Pre Match Home Shirt,6000,12000,50.0,8500,0,2500,D,False,False,False
 https://www.global.jdsports.com/product/black-adidas-jamaica-26-x-bob-marley-away-jersey/19736991_jdsportsjx/,adidas Jamaica 26 X Bob Marley Away Jersey,8000,17000,52.9,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/yellow-adidas-jamaica-2026-home-shirt/19735270_jdsportsjx/,adidas Jamaica 2026 Home Shirt,12000,17000,29.4,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/white-nike-england-2026-match-home-shirt/19742802_jdsportsjx/,Nike England 2026 Match Home Shirt,19000,27000,29.6,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/white-nike-england-2026-anthem-jacket/19742796_jdsportsjx/,Nike England 2026 Anthem Jacket,16000,22000,27.3,8000,0,-8000,D,False,False,False
 https://www.global.jdsports.com/product/blue-nike-england-2026-strike-shirt/19742793_jdsportsjx/,Nike England 2026 Strike Shirt,7000,10000,30.0,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/white-nike-netherlands-2026-away-shirt/19742265_jdsportsjx/,Nike Netherlands 2026 Away Shirt,12000,18000,33.3,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/yellow-adidas-jamaica-2026-pre-match-home-shirt/19736993_jdsportsjx/,adidas Jamaica 2026 Pre Match Home Shirt,6000,12000,50.0,8500,0,2500,D,False,False,False
 https://www.global.jdsports.com/product/yellow-adidas-south-africa-2026-home-shirt/19742605_jdsportsjx/,adidas South Africa 2026 Home Shirt,10000,17000,41.2,8000,0,-2000,D,False,False,False
 https://www.global.jdsports.com/product/black-adidas-inter-miami-cf-202526-messi-10-away-shirt/19671064_jdsportsjx/,adidas Inter Miami CF 2025/26 Messi #10 Away Shirt,14000,18000,22.2,6500,0,-7500,D,False,False,False
 https://www.global.jdsports.com/product/white-umbro-rangers-fc-202627-away-shirt/19756105_jdsportsjx/,Umbro Rangers FC 2026/27 Away Shirt,12000,17000,29.4,0,0,0,?,False,False,False
@@ -144,7 +144,6 @@ https://www.global.jdsports.com/product/blue-adidas-originals-ukraine-2026-away-
 https://www.global.jdsports.com/product/blue-adidas-originals-costa-rica-2026-away-shirt/19742603_jdsportsjx/,adidas Originals Costa Rica 2026 Away Shirt,12000,17000,29.4,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/white-adidas-wales-2026-away-socks/19742072_jdsportsjx/,adidas Wales 2026 Away Socks,1000,4000,75.0,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/blue-adidas-originals-sweden-2026-away-shirt/19742059_jdsportsjx/,adidas Originals Sweden 2026 Away Shirt,14000,17000,17.6,0,0,0,?,False,False,False
-https://www.global.jdsports.com/product/red-nike-canada-2026-home-shirt/19742023_jdsportsjx/,Nike Canada 2026 Home Shirt,6000,18000,66.7,3500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/black-adidas-aston-villa-fc-202526-watkins-11-home-shirt/19740655_jdsportsjx/,adidas Aston Villa FC 2025/26 Watkins #11 Home Shirt,8000,20000,60.0,3500,0,-4500,D,False,False,False
 https://www.global.jdsports.com/product/black-adidas-liverpool-fc-9596-away-t-shirt/19740096_jdsportsjx/,adidas Liverpool FC 95/96 Away T-Shirt,7000,10000,30.0,8500,0,1500,D,False,False,False
 https://www.global.jdsports.com/product/green-adidas-liverpool-fc-9596-away-track-top/19740094_jdsportsjx/,adidas Liverpool FC 95/96 Away Track Top,12000,18000,33.3,8500,0,-3500,D,False,False,False
@@ -186,8 +185,8 @@ https://www.global.jdsports.com/product/white-adidas-real-madrid-dna-t-shirt/197
 https://www.global.jdsports.com/product/blue-adidas-real-madrid-dna-t-shirt/19752162_jdsportsjx/,adidas Real Madrid DNA T-Shirt,4000,5600,28.6,2800,0,-1200,D,False,False,False
 https://www.global.jdsports.com/product/black-adidas-originals-afc-ajax-og-long-sleeve-shirt/19758478_jdsportsjx/,adidas Originals AFC Ajax OG Long Sleeve Shirt,12000,18000,33.3,8000,0,-4000,D,False,False,False
 https://www.global.jdsports.com/product/red-adidas-manchester-united-fc-stadium-track-top/19750778_jdsportsjx/,adidas Manchester United FC Stadium Track Top,14000,20000,30.0,3500,0,-10500,D,False,False,False
-https://www.global.jdsports.com/product/pink-umbro-rangers-fc-202627-pro-training-shirt/19756100_jdsportsjx/,Umbro Rangers FC 2026/27 Pro Training Shirt,8000,10000,20.0,3500,0,-4500,D,False,False,False
 https://www.global.jdsports.com/product/blue-adidas-newcastle-united-fc-202627-pre-match-shirt/19754076_jdsportsjx/,adidas Newcastle United FC 2026/27 Pre Match Shirt,8000,12000,33.3,0,0,0,?,False,False,False
+https://www.global.jdsports.com/product/pink-umbro-rangers-fc-202627-pro-training-shirt/19756100_jdsportsjx/,Umbro Rangers FC 2026/27 Pro Training Shirt,8000,10000,20.0,3500,0,-4500,D,False,False,False
 https://www.global.jdsports.com/product/red-adidas-manchester-united-fc-dna-polo-shirt/19750791_jdsportsjx/,adidas Manchester United FC DNA Polo Shirt,6000,8000,25.0,3500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/green-adidas-algeria-training-shirt/19724208_jdsportsjx/,adidas Algeria Training Shirt,4000,9000,55.6,2500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/red-adidas-manchester-united-fc-dna-t-shirt/19750793_jdsportsjx/,adidas Manchester United FC DNA T-Shirt,4000,5600,28.6,2500,0,-1500,D,False,False,False
@@ -196,14 +195,12 @@ https://www.global.jdsports.com/product/green-adidas-liverpool-fc-202627-goalkee
 https://www.global.jdsports.com/product/red-adidas-liverpool-fc-dna-polo-shirt/19752296_jdsportsjx/,adidas Liverpool FC DNA Polo Shirt,6000,8000,25.0,3500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/red-adidas-originals-scotland-og-shorts/19742881_jdsportsjx/,adidas Originals Scotland OG Shorts,6000,10000,40.0,3500,0,-2500,D,False,False,False
 https://www.global.jdsports.com/product/black-adidas-germany-og-t-shirt/19742039_jdsportsjx/,adidas Germany OG T-Shirt,6000,8000,25.0,3500,0,-2500,D,False,False,False
-https://www.global.jdsports.com/product/white-adidas-argentina-x-lionel-messi-10-shirt/19767723_jdsportsjx/,adidas Argentina x Lionel Messi #10 Shirt,12000,17000,29.4,8000,0,-4000,D,True,False,True
+https://www.global.jdsports.com/product/white-adidas-argentina-x-lionel-messi-10-shirt/19767723_jdsportsjx/,adidas Argentina x Lionel Messi #10 Shirt,12000,17000,29.4,8000,0,-4000,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-originals-newcastle-united-fc-202627-pre-match-shirt/19758559_jdsportsjx/,adidas Originals Newcastle United FC 2026/27 Pre Match Shirt,8000,12000,33.3,3500,0,-4500,D,False,False,False
 https://www.global.jdsports.com/product/purple-adidas-originals-scotland-og-track-pants/19742889_jdsportsjx/,adidas Originals Scotland OG Track Pants,6000,16000,62.5,8500,0,2500,D,False,False,False
 https://www.global.jdsports.com/product/red-adidas-originals-scotland-og-track-top/19742884_jdsportsjx/,adidas Originals Scotland OG Track Top,12000,17000,29.4,8000,0,-4000,D,False,False,False
 https://www.global.jdsports.com/product/blue-puma-portugal-2026-training-shirt/19742771_jdsportsjx/,PUMA Portugal 2026 Training Shirt,7000,9000,22.2,3500,0,-3500,D,False,False,False
 https://www.global.jdsports.com/product/white-adidas-italy-2026-training-shirt/19724186_jdsportsjx/,adidas Italy 2026 Training Shirt,5000,9000,44.4,3500,0,-1500,D,False,False,False
 https://www.global.jdsports.com/product/green-adidas-liverpool-fc-european-training-top/19714508_jdsportsjx/,adidas Liverpool FC European Training Top,10000,13000,23.1,2800,0,-7200,D,False,False,False
-https://www.global.jdsports.com/product/blue-nike-tottenham-hotspur-fc-strike-t-shirt/19713653_jdsportsjx/,Nike Tottenham Hotspur FC Strike T-Shirt,8000,9000,11.1,2500,0,-5500,D,False,False,False
 https://www.global.jdsports.com/product/black-sudu-wolverhampton-wanderers-fc-2526-goalkeeper-shirt/19700842_jdsportsjx/,SUDU Wolverhampton Wanderers FC 25/26 Goalkeeper Shirt,6000,12000,50.0,0,0,0,?,False,False,False
 https://www.global.jdsports.com/product/grey-adidas-real-madrid-training-track-top/19697287_jdsportsjx/,adidas Real Madrid Training Track Top,7000,13000,46.2,3500,0,-3500,D,False,False,False
-https://www.global.jdsports.com/product/black-adidas-ajax-training-track-pants/19692619_jdsportsjx/,adidas Ajax Training Track Pants,6000,11000,45.5,3500,0,-2500,D,False,False,False
